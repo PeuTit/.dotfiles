@@ -1,0 +1,9 @@
+[user]
+	name = Titouan
+	email = 22703571+LilTits@users.noreply.github.com
+[color]
+	ui = true
+[core]
+	editor = vim
+[pull]
+	rebase = false
