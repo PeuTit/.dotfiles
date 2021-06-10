@@ -68,7 +68,7 @@ ZSH_THEME="frontcube"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew rails ruby yarn vscode dotnet)
+plugins=(git brew rails vscode vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -106,7 +106,7 @@ alias pupsub="gcloud beta emulators pubsub start"
 alias ng="ngrok start --all"
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
