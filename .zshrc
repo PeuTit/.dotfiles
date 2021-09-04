@@ -8,7 +8,7 @@ export ZSH="/Users/titouan/.oh-my-zsh"
 ZSH_THEME="awesomepanda"
 
 # Standard plugins can be found in $ZSH/plugins/
-plugins=(git brew rails vscode)
+plugins=(git brew rails vscode gitignore npm)
 
 source $ZSH/oh-my-zsh.sh
 
