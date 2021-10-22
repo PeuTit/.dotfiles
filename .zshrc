@@ -8,7 +8,7 @@ export ZSH="/Users/titouan/.oh-my-zsh"
 ZSH_THEME="awesomepanda"
 
 # Standard plugins can be found in $ZSH/plugins/
-plugins=(git brew rails vscode gitignore npm)
+plugins=(git brew rails gitignore)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -27,6 +27,8 @@ source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
 
 # Github API Token
 HOMEBREW_GITHUB_API_TOKEN="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"
+export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
