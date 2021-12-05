@@ -6,7 +6,5 @@
 [core]
 	editor = vim
 	excludesfile = /Users/titouan/.gitignore
-[pull]
-	rebase = false
 [init]
 	defaultBranch = main
