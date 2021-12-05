@@ -5,6 +5,6 @@
 	ui = true
 [core]
 	editor = vim
-	excludesfile = /Users/titouan/.gitignore
+	excludesfile = ~/.gitignore
 [init]
 	defaultBranch = main
