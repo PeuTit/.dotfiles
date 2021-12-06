@@ -20,3 +20,9 @@ AT Translated Set 2 Keyboard.cfg -> built-in MSI keyboard
 SONiX USB DEVICE.cfg -> Epomaker S68 via USB
 
 Always verify the name of your input with `sudo keyd -m`.
+
+## Install app with Brewfile
+
+```
+brew bundle install
+```
