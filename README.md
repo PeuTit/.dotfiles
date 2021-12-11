@@ -26,3 +26,13 @@ Always verify the name of your input with `sudo keyd -m`.
 ```
 brew bundle install
 ```
+
+## Install powerline font
+
+Refer to this Github Repository for informations
+https://github.com/powerline/fonts
+
+## Install NVM
+
+Refer to this Github Repository for informations
+https://github.com/nvm-sh/nvm
