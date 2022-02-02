@@ -1,6 +1,7 @@
 [user]
 	name = Titouan
 	email = 22703571+PeuTit@users.noreply.github.com
+	signingkey = 3CD1D529C6B304AE
 [color]
 	ui = true
 [core]
@@ -8,3 +9,5 @@
 	excludesfile = ~/.gitignore
 [init]
 	defaultBranch = main
+[commit]
+	gpgsign = true
