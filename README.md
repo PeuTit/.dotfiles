@@ -24,7 +24,7 @@ Always verify the name of your input with `sudo keyd -m`.
 ## Install app with Brewfile
 
 ```
-brew bundle install
+brew bundle --file ~/.dotfiles/Brewfile install
 ```
 
 ## Install powerline font
