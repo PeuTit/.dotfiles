@@ -1,7 +1,7 @@
 [user]
 	name = Titouan
 	email = 22703571+PeuTit@users.noreply.github.com
-	signingkey = 3CD1D529C6B304AE
+	signingkey = E38098F1
 [color]
 	ui = true
 [core]
@@ -11,3 +11,5 @@
 	defaultBranch = main
 [commit]
 	gpgsign = true
+[gpg]
+	program = gpg2
