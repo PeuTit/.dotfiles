@@ -20,6 +20,9 @@ alias reload="source ~/.zshrc"
 # Vi-mode configuration
 # Cursor change between input mode
 VI_MODE_SET_CURSOR=true
+# Make the normal mode default when entering the shell
+zle-line-init() { zle -K vicmd; }
+zle -N zle-line-init
 
 export PATH="/usr/local/sbin:$PATH"
 fpath=(~/.zsh/completion $fpath)
