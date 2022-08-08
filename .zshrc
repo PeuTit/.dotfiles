@@ -17,6 +17,10 @@ source $ZSH/oh-my-zsh.sh
 # Alias
 alias reload="source ~/.zshrc"
 
+# Vi-mode configuration
+# Cursor change between input mode
+VI_MODE_SET_CURSOR=true
+
 export PATH="/usr/local/sbin:$PATH"
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit ; compinit
