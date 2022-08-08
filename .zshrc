@@ -1,28 +1,26 @@
 # If you come from bash you might have to change your $PATH.
-export PATH="/usr/local/sbin:$PATH"
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/titouan/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="awesomepanda"
 
 # Standard plugins can be found in $ZSH/plugins/
-plugins=(git brew rails gitignore)
+plugins=(git vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-alias config="vim ~/.zshrc"
+# Alias
 alias reload="source ~/.zshrc"
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+export PATH="/usr/local/sbin:$PATH"
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit ; compinit
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
