@@ -11,6 +11,6 @@
 	defaultBranch = main
 [commit]
 	gpgsign = true
-	template = /Users/titouan/.gitmessage.md
+	template = ~/.gitmessage.md
 [gpg]
 	program = /usr/local/MacGPG2/bin/gpg2
