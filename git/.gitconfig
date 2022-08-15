@@ -1,5 +1,5 @@
 [user]
-	name = Titouan
+	name = Titouan Guiochet
 	email = 22703571+PeuTit@users.noreply.github.com
 	signingkey = 75D8EC9768100B92
 [color]
@@ -14,3 +14,5 @@
 	template = ~/.gitmessage.md
 [gpg]
 	program = /usr/local/MacGPG2/bin/gpg2
+[pull]
+	rebase = true
