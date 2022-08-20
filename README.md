@@ -1,5 +1,15 @@
 # Dotfiles repo
 
+I'm now using stow to manage my config files.
+
+```sh
+stow -S folder_app1, folder_app2
+```
+Tips: You can add the flag `-v` to activate verbose mode and `-n` to preview the action without making any changes.
+
+To unstow (unlink) you need to use the `-D` flag.
+
+It's still possible to use the classic way of course.
 To simlink a file from this repo to the home directory of your user, use this command
 
 ```sh
@@ -25,6 +35,12 @@ Always verify the name of your input with `sudo keyd -m`.
 
 ```
 brew bundle --file ~/.dotfiles/Brewfile install
+```
+
+To get the list of all app installed with Homebrew, use the command:
+
+```sh
+brew bundle dump --no-lock --force
 ```
 
 ## Install powerline font
