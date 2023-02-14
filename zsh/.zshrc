@@ -12,6 +12,7 @@ ZSH_THEME="awesomepanda"
 plugins=(git vi-mode)
 
 source $ZSH/oh-my-zsh.sh
+source ~/.zsh_plugin/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # User configuration
 # Alias
