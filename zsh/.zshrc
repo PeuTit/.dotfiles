@@ -9,10 +9,9 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="awesomepanda"
 
 # Standard plugins can be found in $ZSH/plugins/
-plugins=(git vi-mode)
+plugins=(git zsh-vi-mode zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
-source ~/.zsh_plugin/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # User configuration
 # Alias
