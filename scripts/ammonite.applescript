@@ -17,5 +17,5 @@
 log "Hello World!"
 tell application "Terminal"
 	activate
-	do script "iamm"
+	do script "amm"
 end tell
