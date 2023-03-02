@@ -1,6 +1,14 @@
 # Dotfiles repo
 
 I'm now using stow to manage my config files.
+This is really helpful to manage each programm separately. You only need to create a folder for each program and store its related file in the same way they would be stored on your machine.
+Then you only need a single command to create all the symbolic links needed.
+
+```sh
+stow git
+stow tmux
+stow ...
+```
 
 ```sh
 stow -S folder_app1, folder_app2
