@@ -5,6 +5,15 @@ require('opts')
 -- Set leader key to <Space>
 vim.g.mapleader = " "
 
+-- Set number
+vim.opt.number = true
+
+-- Tab set to two spaces
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
+
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
