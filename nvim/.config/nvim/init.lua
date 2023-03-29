@@ -23,6 +23,8 @@ require("nvim-tree").setup()
 require("nvim-autopairs").setup()
 require("mason").setup()
 require("mason-lspconfig").setup()
+
+-- rust tools configuration
 local rt = require("rust-tools")
 
 rt.setup({
@@ -86,4 +88,11 @@ cmp.setup({
           return item
       end,
   },
+  view = {
+    entries = "native",
+  }
 })
+
+-- Set Theme
+require('rose-pine').setup()
+vim.cmd('colorscheme rose-pine')

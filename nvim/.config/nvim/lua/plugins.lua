@@ -21,9 +21,13 @@ return require('packer').startup(function(use)
 	  use 'hrsh7th/cmp-nvim-lsp'
 
 	  -- Useful completion sources:
-	  use 'hrsh7th/cmp-nvim-lsp-signature-help'
-	  use 'hrsh7th/cmp-vsnip'
-	  use 'hrsh7th/cmp-path'
-	  use 'hrsh7th/cmp-buffer'
-	  use 'hrsh7th/vim-vsnip'
+    use 'hrsh7th/cmp-nvim-lua'
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'
+    use 'hrsh7th/cmp-vsnip'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/vim-vsnip'
+
+    -- Theme
+    use { 'rose-pine/neovim', as = 'rose-pine' }
 end)
