@@ -3,31 +3,73 @@
 return require('packer').startup(function(use)
 	  -- Packer can manage itself
 	  use 'wbthomason/packer.nvim'
-	  use {                                              -- filesystem navigation
-	    'kyazdani42/nvim-tree.lua',
-	    requires = 'kyazdani42/nvim-web-devicons'        -- filesystem icons
-	  }
-	  use 'windwp/nvim-autopairs'
+
+    -- LSP related plugins
 	  use {
 	    'williamboman/mason.nvim',
 	    'williamboman/mason-lspconfig.nvim',
 	    'neovim/nvim-lspconfig',
 	  }
-	  use 'simrat39/rust-tools.nvim'
+    use 'j-hui/fidget.nvim'
+
 	  -- Completion framework:
-	  use 'hrsh7th/nvim-cmp'
+	  use {
+      'hrsh7th/nvim-cmp',
+      requires = {
+        {
+          'L3MON4D3/LuaSnip',
+          'saadparwaiz1/cmp_luasnip',
+        }
+      }
+    }
 
 	  -- LSP completion source:
 	  use 'hrsh7th/cmp-nvim-lsp'
 
-	  -- Useful completion sources:
-    use 'hrsh7th/cmp-nvim-lua'
-    use 'hrsh7th/cmp-nvim-lsp-signature-help'
-    use 'hrsh7th/cmp-vsnip'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/vim-vsnip'
+    -- Lua configuration for neovim
+    use 'folke/neodev.nvim'
+
+    -- Show pending keybinds
+    use 'folke/which-key.nvim'
+
+    -- Git signs in the gutter (left to the numbers)
+    use 'lewis6991/gitsigns.nvim'
 
     -- Theme
     use { 'rose-pine/neovim', as = 'rose-pine' }
+
+    -- Statusbar
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { { 'nvim-tree/nvim-web-devicons' } }
+    }
+
+    -- Commenting code
+    use 'numToStr/Comment.nvim'
+
+    -- Fuzzy finding files and much more
+    use {
+      'nvim-telescope/telescope.nvim',
+      requires = { { 'nvim-lua/plenary.nvim' } }
+    }
+
+    -- Fuzzy finder algorithm with local dependencies
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
+    -- Highlight, edit and navigate code
+    use {
+      'nvim-treesitter/nvim-treesitter',
+      run = function()
+        local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+        ts_update()
+      end,
+    }
+
+	  use 'windwp/nvim-autopairs'
+
+	  use 'simrat39/rust-tools.nvim'
+
+    -- Metals & Plenary
+    use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' }}
+
 end)
