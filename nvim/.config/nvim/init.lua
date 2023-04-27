@@ -1,5 +1,4 @@
 require('plugins')
-require('opts')
 
 -- Set leader key to <Space>
 vim.g.mapleader = ' '
@@ -35,7 +34,11 @@ require("mason-lspconfig").setup()
 require("fidget").setup()
 require("which-key").setup()
 require("gitsigns").setup()
-require("lualine").setup()
+require("lualine").setup {
+  options = {
+    theme = 'auto',
+  }
+}
 require("Comment").setup()
 require("telescope").load_extension("fzf")
 require("nvim-autopairs").setup()
@@ -49,7 +52,8 @@ require("telescope").setup({
         ['<C-u>'] = false,
         ['<C-d>'] = false,
       }
-    }
+    },
+    initial_mode = "normal",
   }
 })
 
@@ -117,8 +121,37 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
+local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
+-- Telescope
+local telescope_builtin = require('telescope.builtin')
+
+map('n', '<leader>?', telescope_builtin.oldfiles, { desc = '[?] Find recently opened files' })
+map('n', '<leader><space>', telescope_builtin.buffers, { desc = '[ ] Find existing buffers' })
+map('n', '<leader>/', function()
+  -- You can pass additional configuration to telescope to change theme, layout, etc.
+  telescope_builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+    initial_mode = "insert",
+  })
+end, { desc = '[/] Fuzzily search in current buffer' })
+
+map('n', '<leader>sf', telescope_builtin.find_files, { desc = '[S]earch [F]iles' })
+map('n', '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp' })
+map('n', '<leader>sw', telescope_builtin.grep_string, { desc = '[S]earch current [W]ord' })
+map('n', '<leader>sg', telescope_builtin.live_grep, { desc = '[S]earch by [G]rep' })
+map('n', '<leader>sd', telescope_builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+
+-- Diagnostic keymaps
+map('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+map('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+map('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+map('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+
 -- LSP settings.
---  This function gets run when an LSP connects to a particular buffer.
+--  This function gets run when a LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
@@ -138,11 +171,11 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap('gr', telescope_builtin.lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  nmap('<leader>ds', telescope_builtin.lsp_document_symbols, '[D]ocument [S]ymbols')
+  nmap('<leader>ws', telescope_builtin.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -168,8 +201,6 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- rust_analyzer = {},
-
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -180,7 +211,12 @@ local servers = {
 
 require("neodev").setup()
 
-require('keys').setup()
+-- Move between vertically splited window
+map('n', '<A-,>', '<Cmd>:wincmd h<CR>', opts)
+map('n', '<A-.>', '<Cmd>:wincmd l<CR>', opts)
+
+-- Make Space useless in normal mode
+map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -203,120 +239,90 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
--- nvim-cmp setup
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-
-luasnip.config.setup {}
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-}
-
--- rust tools configuration
-local rt = require("rust-tools")
-
-rt.setup({
-  server = {
-    on_attach = function(_, bufnr)
-      -- Hover actions
-      vim.keymap.set("n", "<leader>", rt.hover_actions.hover_actions, { buffer = bufnr })
-      -- Code action groups
-      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-    end,
-  },
-})
-
-
 -- Completion Plugin Setup
 local cmp = require('cmp')
+local luasnip = require('luasnip')
+
+luasnip.config.setup {}
 
 cmp.setup({
   -- Enable LSP snippets
   snippet = {
     expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = {
     -- Add tab support
     ['<S-Tab>'] = cmp.mapping.select_prev_item(),
     ['<Tab>'] = cmp.mapping.select_next_item(),
-    -- Conflict with tmux keybinding
-    ['<C-S-f>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Insert,
+      behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     })
   },
   -- Installed sources:
   sources = {
-    { name = 'path' },                              -- file paths
-    { name = 'nvim_lsp', keyword_length = 3 },      -- from language server
-    { name = 'nvim_lsp_signature_help'},            -- display function signatures with current parameter emphasized
-    { name = 'buffer', keyword_length = 2 },        -- source current buffer
-    { name = 'vsnip', keyword_length = 2 },         -- nvim-cmp source for vim-vsnip 
-    { name = 'calc'},                               -- source for math calculation
+    { name = 'path' },                                       -- file paths
+    { name = 'nvim_lsp',               keyword_length = 3 }, -- from language server
+    { name = 'nvim_lsp_signature_help' },                    -- display function signatures with current parameter emphasized
+    { name = 'buffer',                 keyword_length = 2 }, -- source current buffer
+    { name = 'vsnip',                  keyword_length = 2 }, -- nvim-cmp source for vim-vsnip
+    { name = 'calc' },                                       -- source for math calculation
+    { name = 'luasnip' },
   },
   window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   formatting = {
-      fields = {'menu', 'abbr', 'kind'},
-      format = function(entry, item)
-          local menu_icon ={
-              nvim_lsp = 'λ',
-              vsnip = '⋗',
-              buffer = 'Ω',
-              path = '🖫',
-          }
-          item.menu = menu_icon[entry.source.name]
-          return item
-      end,
+    fields = { 'menu', 'abbr', 'kind' },
+    format = function(entry, item)
+      local menu_icon = {
+        nvim_lsp = 'λ',
+        vsnip = '⋗',
+        buffer = 'Ω',
+        path = '🖫',
+      }
+      item.menu = menu_icon[entry.source.name]
+      return item
+    end,
   },
   view = {
     entries = "native",
   }
 })
 
+-- metals configuration
+local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "scala", "sbt", "java" },
+  callback = function()
+    require("metals").initialize_or_attach({})
+  end,
+  group = nvim_metals_group,
+})
+
+local metals_config = require("metals").bare_config()
+metals_config.init_options.statusBarProvider = "on"
+
+--Set completeopt to have a better completion experience
+-- :help completeopt
+-- menuone: popup even when there's only one match
+-- noinsert: Do not insert text until a selection is made
+-- noselect: Do not select, force to select one from the menu
+-- shortness: avoid showing extra messages when using completion
+-- updatetime: set updatetime for CursorHold
+vim.opt.completeopt = { 'menuone', 'noselect', 'noinsert' }
+vim.opt.shortmess = vim.opt.shortmess + { c = true }
+vim.api.nvim_set_option('updatetime', 300)
+
 -- Set Theme
-require('rose-pine').setup()
+require('rose-pine').setup({
+  variant = 'dawn',
+})
 vim.cmd('colorscheme rose-pine')

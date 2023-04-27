@@ -17,14 +17,12 @@ return require('packer').startup(function(use)
       'hrsh7th/nvim-cmp',
       requires = {
         {
+          'hrsh7th/cmp-nvim-lsp',
           'L3MON4D3/LuaSnip',
           'saadparwaiz1/cmp_luasnip',
         }
       }
     }
-
-	  -- LSP completion source:
-	  use 'hrsh7th/cmp-nvim-lsp'
 
     -- Lua configuration for neovim
     use 'folke/neodev.nvim'
@@ -67,9 +65,6 @@ return require('packer').startup(function(use)
 
 	  use 'windwp/nvim-autopairs'
 
-	  use 'simrat39/rust-tools.nvim'
-
     -- Metals & Plenary
     use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' }}
-
 end)
