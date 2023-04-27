@@ -24,20 +24,33 @@ To simlink a file from this repo to the home directory of your user, use this co
 ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 ```
 
+## Dependencies
+
+(For Arch, you can check the AUR)
+
+### Neovim
+
+(Packer)[https://github.com/wbthomason/packer.nvim]
+
+Clone the packer repository and run `:PackerInstall`.
+
+### Tmux
+
+(tpm)[https://github.com/tmux-plugins/tpm]
+
+Clone the tmux plugin manager repository and run the install command: `prefix + I`.
+
 ## Keyboard config
 
-Install `keyd` on your system.
+(keyd)[https://github.com/rvaiya/keyd]
 
-Then you can simlink the two file in the folder `keyboard-config` in:
+Install `keyd` on your system. (Available on the AUR)
 
-    /etc/keyd/
+AT Translated Set 2 Keyboard -> built-in MSI keyboard
+SONiX USB DEVICE -> Epomaker S68
+Apple Inc. Apple Internal Keyboard / Trackpad
 
-!Don't forget to use sudo!
-
-AT Translated Set 2 Keyboard.cfg -> built-in MSI keyboard
-SONiX USB DEVICE.cfg -> Epomaker S68 via USB
-
-Always verify the name of your input with `sudo keyd -m`.
+Verify the name of your input key with `sudo keyd -m`.
 
 ## Install app with Brewfile
 
@@ -50,13 +63,3 @@ To get the list of all app installed with Homebrew, use the command:
 ```sh
 brew bundle dump --no-lock --force
 ```
-
-## Install powerline font
-
-Refer to this Github Repository for informations
-https://github.com/powerline/fonts
-
-## Install NVM
-
-Refer to this Github Repository for informations
-https://github.com/nvm-sh/nvm
