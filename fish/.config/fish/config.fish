@@ -10,6 +10,7 @@ if status is-interactive
     abbr -a --global -- gl 'git pull'
     abbr -a --global -- gb 'git branch'
     abbr -a --global -- gs 'git switch'
+    abbr -a --global -- gld 'git log --decorate -p'
 
     abbr -a --global -- l 'ls -la'
 
@@ -17,6 +18,20 @@ if status is-interactive
     set fish_cursor_default block
     set fish_cursor_insert line
     set fish_cursor_replace_one underscore
+
+    set fish_greeting
+
+    # add coursier to path
+    switch (uname)
+    case Darwin
+        # macos specific config goes here
+        fish_add_path --path "$HOME/Library/Application Support/Coursier/bin"
+    case Linux
+        # linux specific config goes here
+        fish_add_path --path $HOME/.local/share/coursier/bin
+    case '*'
+        echo "Unknown OS"
+    end
 end
 
 # todo:
