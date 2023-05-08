@@ -143,6 +143,7 @@ map('n', '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp' }
 map('n', '<leader>sw', telescope_builtin.grep_string, { desc = '[S]earch current [W]ord' })
 map('n', '<leader>sg', telescope_builtin.live_grep, { desc = '[S]earch by [G]rep' })
 map('n', '<leader>sd', telescope_builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+map('n', '<leader>gh', telescope_builtin.git_commits, { desc = '[G]it [H]istory' })
 
 -- Diagnostic keymaps
 map('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
