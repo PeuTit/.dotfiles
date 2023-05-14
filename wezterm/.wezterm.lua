@@ -15,7 +15,7 @@ config.window_padding = {
   bottom = 0,
 }
 
-config.font_size = 10.0
+config.font_size = 11.0
 
 config.automatically_reload_config = true
 
