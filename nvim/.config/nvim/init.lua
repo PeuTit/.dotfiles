@@ -141,7 +141,7 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 map('n', '<leader>sf', telescope_builtin.find_files, { desc = '[S]earch [F]iles' })
 map('n', '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp' })
 map('n', '<leader>sw', telescope_builtin.grep_string, { desc = '[S]earch current [W]ord' })
-map('n', '<leader>sg', telescope_builtin.live_grep, { desc = '[S]earch by [G]rep' })
+map('n', '<leader>lg', telescope_builtin.live_grep, { desc = '[L]ive [G]rep' })
 map('n', '<leader>sd', telescope_builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 map('n', '<leader>gh', telescope_builtin.git_commits, { desc = '[G]it [H]istory' })
 
