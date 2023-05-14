@@ -11,6 +11,7 @@ if status is-interactive
     abbr -a --global -- gb 'git branch'
     abbr -a --global -- gs 'git switch'
     abbr -a --global -- gld 'git log --decorate -p'
+    abbr -a --global -- gr 'git rebase'
 
     abbr -a --global -- l 'ls -la'
 
