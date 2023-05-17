@@ -27,6 +27,7 @@ if status is-interactive
     case Darwin
         # macos specific config goes here
         fish_add_path --path "$HOME/Library/Application Support/Coursier/bin"
+        fish_add_path --path "$HOME/.cargo/bin"
     case Linux
         # linux specific config goes here
         fish_add_path --path $HOME/.local/share/coursier/bin
