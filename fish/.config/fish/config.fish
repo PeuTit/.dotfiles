@@ -1,3 +1,9 @@
+# autostart tmux (check if tmux variable is set to avoid nesting)
+if status is-interactive
+and not set -q TMUX
+    tmux new-session -A
+end
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
     # Git
@@ -34,11 +40,11 @@ if status is-interactive
     case '*'
         echo "Unknown OS"
     end
+
+    # use to enter pgp passphrase when commiting
+    set -gx GPG_TTY "$(tty)"
+
+    # todo:
+    # create a quick way to toggle between light & dark mode in Neovim
+    alias lnvim="nvim --cmd \"let g:light='true'\""
 end
-
-# todo:
-# create a quick way to toggle between light & dark mode in Neovim
-alias lnvim="nvim --cmd \"let g:light='true'\""
-
-# use to enter pgp passphrase when commiting
-set -gx GPG_TTY "$(tty)"
