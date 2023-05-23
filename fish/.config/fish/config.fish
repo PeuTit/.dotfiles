@@ -43,8 +43,4 @@ if status is-interactive
 
     # use to enter pgp passphrase when commiting
     set -gx GPG_TTY "$(tty)"
-
-    # todo:
-    # create a quick way to toggle between light & dark mode in Neovim
-    alias lnvim="nvim --cmd \"let g:light='true'\""
 end
