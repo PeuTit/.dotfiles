@@ -334,8 +334,21 @@ vim.opt.completeopt = { 'menuone', 'noselect', 'noinsert' }
 vim.opt.shortmess = vim.opt.shortmess + { c = true }
 vim.api.nvim_set_option('updatetime', 300)
 
--- Set Theme
-require('rose-pine').setup({
-  variant = 'dawn',
-})
+-- Set Theme: default to main
+local rose_pine = require('rose-pine')
+
 vim.cmd('colorscheme rose-pine')
+
+map('n', '<leader>ol', function()
+  rose_pine.setup({
+    variant = 'dawn',
+  })
+  vim.cmd('colorscheme rose-pine')
+end, { desc = '[O]n [L]ight' })
+
+map('n', '<leader>od', function()
+  rose_pine.setup({
+    variant = 'main',
+  })
+  vim.cmd('colorscheme rose-pine')
+end, { desc = '[O]n [D]ark' })
