@@ -18,6 +18,28 @@ config.window_padding = {
 
 config.font_size = 11.0
 
+
+local dark_theme = 'Rosé Pine (base16)'
+local light_theme = 'Rosé Pine Dawn (base16)'
+
+local function scheme_for_appearance(appearance)
+  if appearance:find 'Dark' then
+    return dark_theme
+  else
+    return light_theme
+  end
+end
+
+wezterm.on('window-config-reloaded', function(window)
+  local overrides = window:get_config_overrides() or {}
+  local appearance = window:get_appearance()
+  local scheme = scheme_for_appearance(appearance)
+  if overrides.color_scheme ~= scheme then
+    overrides.color_scheme = scheme
+    window:set_config_overrides(overrides)
+  end
+end)
+
 config.automatically_reload_config = true
 
 return config
