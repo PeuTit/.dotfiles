@@ -61,5 +61,16 @@ brew bundle --file ~/.dotfiles/Brewfile install
 To get the list of all app installed with Homebrew, use the command:
 
 ```sh
-brew bundle dump --no-lock --force
+brew bundle dump --no-lock --force --formula --cask --tap --mas
 ```
+
+We specify the repository so that we only get the relevant package inside the Brewfile.
+This is to avoid having vscode extensions.
+
+## Mac OS specific
+
+### Use touch ID for sudo operations in terminal
+
+(stackexchange)[https://apple.stackexchange.com/questions/259093/can-touch-id-on-mac-authenticate-sudo-in-terminal]
+
+For inside tmux, you'll need the `pam-reattach` package.
