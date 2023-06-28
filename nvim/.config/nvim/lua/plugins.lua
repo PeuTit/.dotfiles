@@ -71,4 +71,7 @@ return require('packer').startup(function(use)
 
   -- Metals & Plenary
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
+
+  -- Indent Rainbow
+  use { "lukas-reineke/indent-blankline.nvim" }
 end)
