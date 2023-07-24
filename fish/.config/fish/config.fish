@@ -18,6 +18,8 @@ if status is-interactive
     abbr -a --global -- gs 'git switch'
     abbr -a --global -- gld 'git log --decorate -p'
     abbr -a --global -- gr 'git rebase'
+    abbr -a --global -- grv 'git remote -v'
+    abbr -a --global -- gm 'git merge'
 
     abbr -a --global -- l 'ls -la'
 
