@@ -1,8 +1,21 @@
-require('plugins')
-
 -- Set leader key to <Space>
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("plugins")
 
 -- Set terminal color
 vim.g.termguicolors = true
@@ -40,7 +53,6 @@ require("lualine").setup {
   }
 }
 require("Comment").setup()
-require("telescope").load_extension("fzf")
 require("nvim-autopairs").setup()
 
 -- telescope configuration
@@ -57,9 +69,14 @@ require("telescope").setup({
   }
 })
 
+require("telescope").load_extension("fzy_native")
+
 require('nvim-treesitter.configs').setup {
+  modules = {},
+  sync_install = false,
+  ignore_install = {},
   -- Add languages to be installed here that you want installed for treesitter
-  -- ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'lua', 'rust', 'vimdoc', 'vim', 'scala' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -360,6 +377,6 @@ map('n', '<leader>od', function()
 end, { desc = '[O]n [D]ark' })
 
 require("indent_blankline").setup {
-    show_current_context = true,
-    show_current_context_start = true,
+  show_current_context = true,
+  show_current_context_start = true,
 }

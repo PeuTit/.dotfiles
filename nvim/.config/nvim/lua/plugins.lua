@@ -1,77 +1,77 @@
 -- This file can be loaded by calling `require('plugins')` from your init.lua
 
-return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
-
+return require('lazy').setup({
   -- LSP related plugins
-  use {
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
-    'neovim/nvim-lspconfig',
-  }
-
-  use {
+  { 'williamboman/mason.nvim' },
+  { 'williamboman/mason-lspconfig.nvim' },
+  { 'neovim/nvim-lspconfig' },
+  {
     'j-hui/fidget.nvim',
     tag = 'legacy',
-  }
+  },
 
   -- Completion framework:
-  use {
+  {
     'hrsh7th/nvim-cmp',
-    requires = {
+    dependencies = {
       {
         'hrsh7th/cmp-nvim-lsp',
         'L3MON4D3/LuaSnip',
         'saadparwaiz1/cmp_luasnip',
       }
     }
-  }
+  },
 
   -- Lua configuration for neovim
-  use 'folke/neodev.nvim'
+  { 'folke/neodev.nvim' },
 
   -- Show pending keybinds
-  use 'folke/which-key.nvim'
+  { 'folke/which-key.nvim' },
 
   -- Git signs in the gutter (left to the numbers)
-  use 'lewis6991/gitsigns.nvim'
+  { 'lewis6991/gitsigns.nvim' },
 
   -- Theme
-  use { 'rose-pine/neovim', as = 'rose-pine' }
+  { 'rose-pine/neovim',       as = 'rose-pine' },
 
   -- Statusbar
-  use {
+  {
     'nvim-lualine/lualine.nvim',
-    requires = { { 'nvim-tree/nvim-web-devicons' } }
-  }
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+  },
 
   -- Commenting code
-  use 'numToStr/Comment.nvim'
+  { 'numToStr/Comment.nvim' },
 
   -- Fuzzy finding files and much more
-  use {
+  {
     'nvim-telescope/telescope.nvim',
-    requires = { { 'nvim-lua/plenary.nvim' } }
-  }
+    dependencies = {
+      { 'nvim-lua/plenary.nvim' },
 
-  -- Fuzzy finder algorithm with local dependencies
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+      -- Fuzzy finder algorithm with local dependencie
+      -- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
+      { 'nvim-telescope/telescope-fzy-native.nvim' }
+    }
+  },
 
   -- Highlight, edit and navigate code
-  use {
+  {
     'nvim-treesitter/nvim-treesitter',
-    run = function()
+    build = function()
       local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
       ts_update()
     end,
-  }
+  },
 
-  use 'windwp/nvim-autopairs'
+  { 'windwp/nvim-autopairs' },
 
   -- Metals & Plenary
-  use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } }
+  {
+    'scalameta/nvim-metals',
+    dependencies = { 'nvim-lua/plenary.nvim' }
+  },
 
   -- Indent Rainbow
-  use { "lukas-reineke/indent-blankline.nvim" }
-end)
+  { "lukas-reineke/indent-blankline.nvim" }
+})
