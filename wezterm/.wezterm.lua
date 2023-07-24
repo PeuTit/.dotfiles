@@ -1,4 +1,5 @@
 local wezterm = require 'wezterm'
+local mux = wezterm.mux
 
 local config = {}
 
@@ -46,6 +47,11 @@ local font = wezterm.font_with_fallback({
 })
 
 config.font = font
+
+wezterm.on("gui-startup", function()
+  local tab, pane, window = mux.spawn_window{}
+  window:gui_window():maximize()
+end)
 
 config.automatically_reload_config = true
 
