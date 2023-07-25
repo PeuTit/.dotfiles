@@ -73,5 +73,14 @@ return require('lazy').setup({
   },
 
   -- Indent Rainbow
-  { "lukas-reineke/indent-blankline.nvim" }
+  { "lukas-reineke/indent-blankline.nvim" },
+
+  {
+    'pwntester/octo.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+    }
+  }
 })
