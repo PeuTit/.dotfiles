@@ -30,9 +30,9 @@ ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 
 ### Neovim
 
-(Packer)[https://github.com/wbthomason/packer.nvim]
+(Lazy)[https://github.com/wbthomason/packer.nvim]
 
-Clone the packer repository and run `:PackerInstall`.
+Just need to open Lazy and voila! Everything is working straight away.
 
 ### Tmux
 
