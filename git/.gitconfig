@@ -16,3 +16,5 @@
 	program = /usr/local/bin/gpg
 [pull]
 	rebase = true
+[includeIf "gitdir:~/Documents/work/lunatech/"]
+  path = .gitconfig_lunatech
