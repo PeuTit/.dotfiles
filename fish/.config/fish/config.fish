@@ -23,6 +23,8 @@ if status is-interactive
 
     abbr -a --global -- l 'ls -la'
 
+    abbr -a --global -- rm 'trash'
+
     fish_vi_key_bindings insert
     set fish_cursor_default block
     set fish_cursor_insert line
