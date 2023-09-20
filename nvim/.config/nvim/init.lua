@@ -219,6 +219,9 @@ map('n', '<leader>fm', ':Format<cr>', { desc = '[F]or[M]at' })
 -- Remove trailing whitespace
 map('n', '<leader>tw', [[:%s/\s\+$//e<cr>]], { desc = '[T]railing [W]hitespace' })
 
+-- Close all buffers except current
+map('n', '<leader>cba', [[:%bd|e#<cr>]], { desc = '[C]lose [B]uffers [A]ll' })
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
