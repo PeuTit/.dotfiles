@@ -82,5 +82,11 @@ return require('lazy').setup({
       'nvim-telescope/telescope.nvim',
       'nvim-tree/nvim-web-devicons',
     }
+  },
+
+  {
+    'akinsho/git-conflict.nvim',
+    version = "*",
+    config = true
   }
 })

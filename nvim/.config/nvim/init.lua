@@ -160,7 +160,10 @@ map('n', '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp' }
 map('n', '<leader>sw', telescope_builtin.grep_string, { desc = '[S]earch current [W]ord' })
 map('n', '<leader>lg', telescope_builtin.live_grep, { desc = '[L]ive [G]rep' })
 map('n', '<leader>sd', telescope_builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+
+-- Telescope Git
 map('n', '<leader>gh', telescope_builtin.git_commits, { desc = '[G]it [H]istory' })
+map('n', '<leader>gs', telescope_builtin.git_status, { desc = '[G]it [S]tatus' })
 
 -- Diagnostic keymaps
 map('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
@@ -221,6 +224,9 @@ map('n', '<leader>tw', [[:%s/\s\+$//e<cr>]], { desc = '[T]railing [W]hitespace' 
 
 -- Close all buffers except current
 map('n', '<leader>cba', [[:%bd|e#<cr>]], { desc = '[C]lose [B]uffers [A]ll' })
+
+-- List all conflicts to quickfix
+map('n', '<leader>glc', ':GitConflictListQf<cr>', { desc = '[G]it [L]ist [C]onflict' })
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
