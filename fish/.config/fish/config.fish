@@ -20,6 +20,7 @@ if status is-interactive
     abbr -a --global -- gr 'git rebase'
     abbr -a --global -- grv 'git remote -v'
     abbr -a --global -- gm 'git merge'
+    abbr -a --global -- gf 'git fetch'
 
     abbr -a --global -- l 'ls -la'
 
