@@ -143,6 +143,7 @@ local opts = { noremap = true, silent = true }
 
 -- Telescope
 local telescope_builtin = require('telescope.builtin')
+local telescope_extension = require('telescope').extensions
 
 map('n', '<leader>?', telescope_builtin.oldfiles, { desc = '[?] Find recently opened files' })
 map('n', '<leader><space>', telescope_builtin.buffers, { desc = '[ ] Find existing buffers' })
@@ -164,6 +165,9 @@ map('n', '<leader>sd', telescope_builtin.diagnostics, { desc = '[S]earch [D]iagn
 -- Telescope Git
 map('n', '<leader>gh', telescope_builtin.git_commits, { desc = '[G]it [H]istory' })
 map('n', '<leader>gs', telescope_builtin.git_status, { desc = '[G]it [S]tatus' })
+
+-- Telescope Metals
+map("n", "<leader>mc", telescope_extension.metals.commands, { desc = '[M]etals [C]ommands' })
 
 -- Diagnostic keymaps
 map('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
@@ -347,10 +351,61 @@ cmp.setup({
 local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
 
 local metals_config = require("metals").bare_config()
+
 metals_config.init_options.statusBarProvider = "on"
+
+-- TODO: uncomment when tree view will be fixed
+--[[ metals_config.tvp = {
+  icons = {
+    enable = true,
+  }
+} ]]
+
+metals_config.settings = {
+  showImplicitArguments = true,
+  showImplicitConversionsAndClasses = true,
+  showInferredType = true
+}
+
+metals_config.capabilities = capabilities
 
 metals_config.on_attach = function(client, bufnr)
   on_attach(client, bufnr)
+
+  map("v", "K", require("metals").type_of_range)
+
+  map("n", "<leader>hs", function()
+    require("metals").hover_worksheet({ border = "single" })
+  end, { desc = '[H]over work[S]heet' })
+
+  -- TODO: Figure out why the tree view is opened anytime a file is loaded
+  -- map("n", "<leader>tt", require("metals.tvp").toggle_tree_view, { desc = '[T]oggle [T]ree' })
+
+  -- map("n", "<leader>tr", require("metals.tvp").reveal_in_tree { desc = '[T]ree [R]eveal' })
+
+  map("n", "<leader>mts", function()
+    require("metals").toggle_setting("showImplicitArguments")
+  end, { desc = '[M]etals [T]oggle [S]howImplicitArguments' })
+
+  -- A lot of the servers I use won't support document_highlight or codelens,
+  -- so we juse use them in Metals
+  vim.api.nvim_create_autocmd("CursorHold", {
+    callback = vim.lsp.buf.document_highlight,
+    buffer = bufnr,
+    group = nvim_metals_group,
+  })
+  vim.api.nvim_create_autocmd("CursorMoved", {
+    callback = function()
+      vim.lsp.buf.clear_references()
+    end,
+    buffer = bufnr,
+    group = nvim_metals_group,
+  })
+  vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+    callback = vim.lsp.codelens.refresh,
+    buffer = bufnr,
+    group = nvim_metals_group,
+  })
 end
 
 vim.api.nvim_create_autocmd("FileType", {
