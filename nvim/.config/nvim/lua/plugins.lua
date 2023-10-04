@@ -73,7 +73,7 @@ return require('lazy').setup({
   },
 
   -- Indent Rainbow
-  { "lukas-reineke/indent-blankline.nvim" },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 
   {
     'pwntester/octo.nvim',
