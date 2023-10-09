@@ -30,19 +30,23 @@ ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 
 ### Neovim
 
-(Lazy)[https://github.com/wbthomason/packer.nvim]
+[Lazy](https://github.com/wbthomason/packer.nvim)
 
 Just need to open Lazy and voila! Everything is working straight away.
 
 ### Tmux
 
-(tpm)[https://github.com/tmux-plugins/tpm]
+[tpm](https://github.com/tmux-plugins/tpm)
 
 Clone the tmux plugin manager repository and run the install command: `prefix + I`.
 
+Mac OS only:
+
+The keybinding for switching input source is conflicting with my prefix (ctrl + space). Don't forget to go to keyboard settings and change/disable the shortcut.
+
 ## Keyboard config
 
-(keyd)[https://github.com/rvaiya/keyd]
+[keyd](https://github.com/rvaiya/keyd)
 
 Install `keyd` on your system. (Available on the AUR)
 
@@ -71,6 +75,6 @@ This is to avoid having vscode extensions.
 
 ### Use touch ID for sudo operations in terminal
 
-(stackexchange)[https://apple.stackexchange.com/questions/259093/can-touch-id-on-mac-authenticate-sudo-in-terminal]
+[stackexchange](https://apple.stackexchange.com/questions/259093/can-touch-id-on-mac-authenticate-sudo-in-terminal)
 
 For inside tmux, you'll need the `pam-reattach` package.
