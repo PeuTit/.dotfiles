@@ -227,7 +227,7 @@ map('n', '<leader>fm', ':Format<cr>', { desc = '[F]or[M]at' })
 map('n', '<leader>tw', [[:%s/\s\+$//e<cr>]], { desc = '[T]railing [W]hitespace' })
 
 -- Close all buffers except current
-map('n', '<leader>cba', [[:%bd|e#<cr>]], { desc = '[C]lose [B]uffers [A]ll' })
+map('n', '<leader>cba', [[:%bd|e#|bd#<cr>'"]], { desc = '[C]lose [B]uffers [A]ll' })
 
 -- List all conflicts to quickfix
 map('n', '<leader>glc', ':GitConflictListQf<cr>', { desc = '[G]it [L]ist [C]onflict' })
