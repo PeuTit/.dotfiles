@@ -78,3 +78,11 @@ This is to avoid having vscode extensions.
 [stackexchange](https://apple.stackexchange.com/questions/259093/can-touch-id-on-mac-authenticate-sudo-in-terminal)
 
 For inside tmux, you'll need the `pam-reattach` package.
+
+Open the file with this command `sudo -e /etc/pam.d/sudo`,
+and just copy the two following line
+
+```bash
+auth     optional     pam_reattach.so
+auth     sufficient   pam_tid.so
+```
