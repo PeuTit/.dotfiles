@@ -145,7 +145,6 @@ local opts = { noremap = true, silent = true }
 local telescope_builtin = require('telescope.builtin')
 local telescope_extension = require('telescope').extensions
 
-map('n', '<leader>?', telescope_builtin.oldfiles, { desc = '[?] Find recently opened files' })
 map('n', '<leader><space>', telescope_builtin.buffers, { desc = '[ ] Find existing buffers' })
 map('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
@@ -157,23 +156,43 @@ map('n', '<leader>/', function()
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 map('n', '<leader>sf', telescope_builtin.find_files, { desc = '[S]earch [F]iles' })
-map('n', '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp' })
-map('n', '<leader>sw', telescope_builtin.grep_string, { desc = '[S]earch current [W]ord' })
-map('n', '<leader>lg', telescope_builtin.live_grep, { desc = '[L]ive [G]rep' })
 map('n', '<leader>sd', telescope_builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+map('n', '<leader>sh', function()
+  telescope_builtin.help_tags {
+    initial_mode = "insert"
+  }
+end, { desc = '[S]earch [H]elp' })
+map('n', '<leader>lg', function()
+  telescope_builtin.live_grep {
+    initial_mode = "insert"
+  }
+end, { desc = '[L]ive [G]rep' })
+map('n', '<leader>sc', function()
+  telescope_builtin.commands { initial_mode = "insert" }
+end, { desc = '[S]earch [C]ommands' })
+
+map('n', '<leader>sk', function()
+  telescope_builtin.keymaps { initial_mode = "insert" }
+end, { desc = '[S]earch [K]eymaps' })
 
 -- Telescope Git
 map('n', '<leader>gh', telescope_builtin.git_commits, { desc = '[G]it [H]istory' })
 map('n', '<leader>gs', telescope_builtin.git_status, { desc = '[G]it [S]tatus' })
 
 -- Telescope Metals
-map("n", "<leader>mc", telescope_extension.metals.commands, { desc = '[M]etals [C]ommands' })
+map("n", "<leader>mc", function()
+  telescope_extension.metals.commands {
+    initial_mode = "insert"
+  }
+end, { desc = '[M]etals [C]ommands' })
+
+-- Telescope Treesitter
+map("n", "<leader>ts", telescope_builtin.treesitter, { desc = '[T]ree[S]itter' })
 
 -- Diagnostic keymaps
-map('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-map('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+map('n', '<leader>pd', vim.diagnostic.goto_prev, { desc = "[P]revious [D]iagnostic" })
+map('n', '<leader>nd', vim.diagnostic.goto_next, { desc = "[N]ext [D]iagnostic" })
 map('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-map('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- LSP settings.
 --  This function gets run when a LSP connects to a particular buffer.
@@ -195,12 +214,14 @@ local on_attach = function(_, bufnr)
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('gd', telescope_builtin.lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', telescope_builtin.lsp_references, '[G]oto [R]eferences')
-  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap('gi', telescope_builtin.lsp_implementations, '[G]oto [I]mplementation')
+  nmap('<leader>gd', telescope_builtin.lsp_type_definition, 'Type [D]efinition')
   nmap('<leader>ds', telescope_builtin.lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', telescope_builtin.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  nmap('<leader>ic', telescope_builtin.lsp_incoming_calls, '[I]ncoming [C]alls')
+  nmap('<leader>oc', telescope_builtin.lsp_outgoing_calls, '[O]utgoing [C]alls')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
