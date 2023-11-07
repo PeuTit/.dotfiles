@@ -157,16 +157,19 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 
 map('n', '<leader>sf', telescope_builtin.find_files, { desc = '[S]earch [F]iles' })
 map('n', '<leader>sd', telescope_builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+
 map('n', '<leader>sh', function()
   telescope_builtin.help_tags {
     initial_mode = "insert"
   }
 end, { desc = '[S]earch [H]elp' })
+
 map('n', '<leader>lg', function()
   telescope_builtin.live_grep {
     initial_mode = "insert"
   }
 end, { desc = '[L]ive [G]rep' })
+
 map('n', '<leader>sc', function()
   telescope_builtin.commands { initial_mode = "insert" }
 end, { desc = '[S]earch [C]ommands' })
@@ -217,11 +220,11 @@ local on_attach = function(_, bufnr)
   nmap('gd', telescope_builtin.lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', telescope_builtin.lsp_references, '[G]oto [R]eferences')
   nmap('gi', telescope_builtin.lsp_implementations, '[G]oto [I]mplementation')
-  nmap('<leader>gd', telescope_builtin.lsp_type_definition, 'Type [D]efinition')
-  nmap('<leader>ds', telescope_builtin.lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>ws', telescope_builtin.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-  nmap('<leader>ic', telescope_builtin.lsp_incoming_calls, '[I]ncoming [C]alls')
-  nmap('<leader>oc', telescope_builtin.lsp_outgoing_calls, '[O]utgoing [C]alls')
+  -- nmap('<leader>gd', telescope_builtin.lsp_type_definition, 'Type [D]efinition')
+  -- nmap('<leader>ds', telescope_builtin.lsp_document_symbols, '[D]ocument [S]ymbols')
+  -- nmap('<leader>ws', telescope_builtin.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  -- nmap('<leader>ic', telescope_builtin.lsp_incoming_calls, '[I]ncoming [C]alls')
+  -- nmap('<leader>oc', telescope_builtin.lsp_outgoing_calls, '[O]utgoing [C]alls')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -270,8 +273,11 @@ local servers = {
 require("neodev").setup()
 
 -- Move between vertically splited window
-map('n', '<A-,>', '<Cmd>:wincmd h<CR>', opts)
-map('n', '<A-.>', '<Cmd>:wincmd l<CR>', opts)
+map({ 'n', 't' }, '<A-h>', '<Cmd>NavigatorLeft<CR>', opts)
+map({ 'n', 't' }, '<A-l>', '<Cmd>NavigatorRight<CR>', opts)
+map({ 'n', 't' }, '<A-k>', '<Cmd>NavigatorUp<CR>', opts)
+map({ 'n', 't' }, '<A-j>', '<Cmd>NavigatorDown<CR>', opts)
+map({ 'n', 't' }, '<A-space>', '<Cmd>NavigatorPrevious<CR>', opts)
 
 -- Make Space useless in normal mode
 map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -498,3 +504,5 @@ end)
 require("ibl").setup({ scope = { highlight = highlight } })
 
 require("octo").setup()
+
+require("Navigator").setup({ disable_on_zoom = true, mux = "auto" })

@@ -88,5 +88,7 @@ return require('lazy').setup({
     'akinsho/git-conflict.nvim',
     version = "*",
     config = true
-  }
+  },
+
+  { 'numToStr/navigator.nvim' }
 })
