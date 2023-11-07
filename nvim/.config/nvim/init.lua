@@ -55,6 +55,8 @@ require("lualine").setup {
 require("Comment").setup()
 require("nvim-autopairs").setup()
 
+-- Telescope actions
+local actions = require("telescope.actions")
 -- telescope configuration
 require("telescope").setup({
   defaults = {
@@ -63,9 +65,13 @@ require("telescope").setup({
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
-      }
+      },
+      n = {
+        ["f"] = actions.send_to_qflist,
+      },
     },
     initial_mode = "normal",
+    layout_strategy = "vertical"
   }
 })
 
