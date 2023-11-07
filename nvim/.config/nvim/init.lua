@@ -508,6 +508,4 @@ end)
 
 require("ibl").setup({ scope = { highlight = highlight } })
 
-require("octo").setup()
-
 require("Navigator").setup({ disable_on_zoom = true, mux = "auto" })
