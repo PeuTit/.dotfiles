@@ -32,7 +32,10 @@ return require('lazy').setup({
   { 'lewis6991/gitsigns.nvim' },
 
   -- Theme
-  { 'rose-pine/neovim',       as = 'rose-pine' },
+  {
+    'rose-pine/neovim',
+    as = 'rose-pine'
+  },
 
   -- Statusbar
   {
