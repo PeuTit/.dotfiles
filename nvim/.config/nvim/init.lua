@@ -350,13 +350,12 @@ cmp.setup({
   },
   -- Installed sources:
   sources = {
-    { name = 'path' },                                       -- file paths
+    { name = 'luasnip' },
     { name = 'nvim_lsp',               keyword_length = 3 }, -- from language server
     { name = 'nvim_lsp_signature_help' },                    -- display function signatures with current parameter emphasized
     { name = 'buffer',                 keyword_length = 2 }, -- source current buffer
-    { name = 'vsnip',                  keyword_length = 2 }, -- nvim-cmp source for vim-vsnip
+    { name = 'path' },                                       -- file paths
     { name = 'calc' },                                       -- source for math calculation
-    { name = 'luasnip' },
   },
   window = {
     completion = cmp.config.window.bordered(),
