@@ -90,5 +90,7 @@ return require('lazy').setup({
     config = true
   },
 
+  { 'tpope/vim-fugitive' },
+
   { 'numToStr/navigator.nvim' }
 })
