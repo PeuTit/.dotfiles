@@ -40,3 +40,16 @@ inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
 inoremap < <><left>
+
+let g:tmux_navigator_no_mappings = 1
+
+execute "set <M-h>=\eh"
+execute "set <M-j>=\ej"
+execute "set <M-k>=\ek"
+execute "set <M-l>=\el"
+
+noremap <silent> <M-h> :<C-U>:TmuxNavigateLeft<cr>
+noremap <silent> <M-j> :<C-U>TmuxNavigateDown<cr>
+noremap <silent> <M-k> :<C-U>TmuxNavigateUp<cr>
+noremap <silent> <M-l> :<C-U>TmuxNavigateRight<cr>
+noremap <silent> <M-space> :<C-U>TmuxNavigatePrevious<cr>
