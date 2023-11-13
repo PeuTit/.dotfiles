@@ -466,22 +466,25 @@ vim.opt.shortmess = vim.opt.shortmess + { c = true }
 vim.api.nvim_set_option('updatetime', 300)
 
 -- Set Theme: default to main
-local rose_pine = require('rose-pine')
+local catppuccin = require('catppuccin')
 
-vim.cmd('colorscheme rose-pine')
+vim.cmd('colorscheme catppuccin')
+
+local function set_colour_scheme(flavour)
+  catppuccin.setup({
+    flavour = flavour,
+  })
+  vim.cmd('colorscheme catppuccin')
+end
 
 map('n', '<leader>ol', function()
-  rose_pine.setup({
-    variant = 'dawn',
-  })
-  vim.cmd('colorscheme rose-pine')
+  set_colour_scheme("latte")
+  vim.cmd.colorscheme "catppuccin"
 end, { desc = '[O]n [L]ight' })
 
 map('n', '<leader>od', function()
-  rose_pine.setup({
-    variant = 'main',
-  })
-  vim.cmd('colorscheme rose-pine')
+  set_colour_scheme("mocha")
+  vim.cmd.colorscheme "catppuccin"
 end, { desc = '[O]n [D]ark' })
 
 local highlight = {

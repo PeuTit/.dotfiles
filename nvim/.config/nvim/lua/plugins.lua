@@ -34,7 +34,12 @@ return require('lazy').setup({
   -- Theme
   {
     'rose-pine/neovim',
-    as = 'rose-pine'
+    name = 'rose-pine'
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000
   },
 
   -- Statusbar
