@@ -19,9 +19,8 @@ config.window_padding = {
 
 config.font_size = 11.0
 
-
-local dark_theme = 'Rosé Pine (base16)'
-local light_theme = 'Rosé Pine Dawn (base16)'
+local dark_theme = 'Londontube (dark) (terminal.sexy)'
+local light_theme = 'Londontube (light) (terminal.sexy)'
 
 local function scheme_for_appearance(appearance)
   if appearance:find 'Dark' then
@@ -49,7 +48,7 @@ local font = wezterm.font_with_fallback({
 config.font = font
 
 wezterm.on("gui-startup", function()
-  local tab, pane, window = mux.spawn_window{}
+  local _, _, window = mux.spawn_window{}
   window:gui_window():maximize()
 end)
 
