@@ -41,6 +41,10 @@ vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 
+local function metals_status()
+  return vim.g["metals_status"] or ""
+end
+
 -- empty setup using defaults
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -50,7 +54,10 @@ require("gitsigns").setup()
 require("lualine").setup {
   options = {
     theme = 'auto',
-  }
+  },
+   sections = {
+    lualine_c = {'filename', metals_status},
+  },
 }
 require("Comment").setup()
 require("nvim-autopairs").setup()
@@ -225,8 +232,8 @@ local on_attach = function(_, bufnr)
 
   nmap('gd', telescope_builtin.lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', telescope_builtin.lsp_references, '[G]oto [R]eferences')
-  nmap('gi', telescope_builtin.lsp_implementations, '[G]oto [I]mplementation')
-  nmap('gtd', telescope_builtin.lsp_type_definition, '[G]oto [T]ype [D]efinition')
+  nmap('gi', telescope_builtin.lsp_implementations, '[G]oto [I]mplementations')
+  nmap('<leader>gt', telescope_builtin.lsp_type_definitions, '[G]oto [T]ype [D]efinitions')
   nmap('<leader>ds', telescope_builtin.lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', telescope_builtin.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
   nmap('<leader>ic', telescope_builtin.lsp_incoming_calls, '[I]ncoming [C]alls')
