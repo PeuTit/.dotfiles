@@ -26,6 +26,7 @@ vim.g.loaded_netrwPlugin = 1
 
 -- Set number
 vim.opt.number = true
+vim.opt.relativenumber = true
 
 -- Tab set to two spaces
 vim.opt.tabstop = 2
@@ -153,6 +154,9 @@ require('nvim-treesitter.configs').setup {
 
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
+
+-- Don't overwrite paste register
+map('n', '<leader>p', '"_dP', { desc = 'Alternate Paste Register'})
 
 -- Telescope
 local telescope_builtin = require('telescope.builtin')
