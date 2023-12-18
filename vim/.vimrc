@@ -21,7 +21,11 @@ set softtabstop=4
 set smartindent
 set autoindent
 
-" Delete trailing white space on save, useful for some filetypes ;)
+" Set spellchecker on
+set spell
+set spelllang=en_gb
+
+" Delete trailing white space on save, useful for some file types ;)
 fun! CleanExtraSpaces()
 	let save_cursor = getpos(".")
 	let old_query = getreg('/')
