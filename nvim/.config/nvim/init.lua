@@ -17,7 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("plugins")
 
--- Set terminal color
+-- Set terminal colour
 vim.g.termguicolors = true
 
 -- Disable netrw at the very start of your init.lua (strongly advised)
@@ -41,6 +41,10 @@ vim.opt_global.clipboard = "unnamed"
 vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
+
+-- Spell check
+vim.opt.spell = true
+vim.opt.spelllang = "en_gb"
 
 local function metals_status()
   return vim.g["metals_status"] or ""
@@ -92,7 +96,7 @@ require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'lua', 'rust', 'vimdoc', 'vim', 'scala' },
 
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+  -- Auto install languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
 
   highlight = { enable = true },
@@ -122,7 +126,7 @@ require('nvim-treesitter.configs').setup {
     },
     move = {
       enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
+      set_jumps = true, -- whether to set jumps in the jump list
       goto_next_start = {
         [']m'] = '@function.outer',
         [']]'] = '@class.outer',
@@ -209,7 +213,7 @@ end, { desc = '[M]etals [C]ommands' })
 -- Telescope Treesitter
 map("n", "<leader>ts", telescope_builtin.treesitter, { desc = '[T]ree[S]itter' })
 
--- Diagnostic keymaps
+-- Diagnostic key maps
 map('n', '<leader>pd', vim.diagnostic.goto_prev, { desc = "[P]revious [D]iagnostic" })
 map('n', '<leader>nd', vim.diagnostic.goto_next, { desc = "[N]ext [D]iagnostic" })
 map('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
@@ -243,7 +247,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ic', telescope_builtin.lsp_incoming_calls, '[I]ncoming [C]alls')
   nmap('<leader>oc', telescope_builtin.lsp_outgoing_calls, '[O]utgoing [C]alls')
 
-  -- See `:help K` for why this keymap
+  -- See `:help K` for why this key map
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
@@ -264,20 +268,20 @@ end
 -- Format code
 map('n', '<leader>fm', ':Format<cr>', { desc = '[F]or[M]at' })
 
--- Remove trailing whitespace
+-- Remove trailing white space
 map('n', '<leader>tw', [[:%s/\s\+$//e<cr>]], { desc = '[T]railing [W]hitespace' })
 
 -- Close all buffers except current
 map('n', '<leader>cba', [[:%bd|e#|bd#<cr>'"]], { desc = '[C]lose [B]uffers [A]ll' })
 
--- List all conflicts to quickfix
+-- List all conflicts to quick fix
 map('n', '<leader>glc', ':GitConflictListQf<cr>', { desc = '[G]it [L]ist [C]onflict' })
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
 --  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
+--  the `settings` field of the server configuration. You must look up that documentation yourself.
 local servers = {
   lua_ls = {
     Lua = {
@@ -366,7 +370,7 @@ cmp.setup({
     { name = 'nvim_lsp_signature_help' },                    -- display function signatures with current parameter emphasized
     { name = 'buffer',                 keyword_length = 2 }, -- source current buffer
     { name = 'path' },                                       -- file paths
-    { name = 'calc' },                                       -- source for math calculation
+    { name = 'calc' },                                       -- source for maths calculation
   },
   window = {
     completion = cmp.config.window.bordered(),
@@ -430,8 +434,8 @@ metals_config.on_attach = function(client, bufnr)
     require("metals").toggle_setting("showImplicitArguments")
   end, { desc = '[M]etals [T]oggle [S]howImplicitArguments' })
 
-  -- A lot of the servers I use won't support document_highlight or codelens,
-  -- so we juse use them in Metals
+  -- A lot of the servers I use won't support document_highlight or code lens,
+  -- so we just use them in Metals
   vim.api.nvim_create_autocmd("CursorHold", {
     callback = vim.lsp.buf.document_highlight,
     buffer = bufnr,
@@ -467,7 +471,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 --Set completeopt to have a better completion experience
 -- :help completeopt
--- menuone: popup even when there's only one match
+-- menuone: pop-up even when there's only one match
 -- noinsert: Do not insert text until a selection is made
 -- noselect: Do not select, force to select one from the menu
 -- shortness: avoid showing extra messages when using completion
@@ -509,7 +513,7 @@ local highlight = {
 }
 local hooks = require "ibl.hooks"
 -- create the highlight groups in the highlight setup hook, so they are reset
--- every time the colorscheme changes
+-- every time the colour scheme changes
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
   vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
   vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
