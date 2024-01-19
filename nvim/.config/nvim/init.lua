@@ -60,8 +60,8 @@ require("lualine").setup {
   options = {
     theme = 'auto',
   },
-   sections = {
-    lualine_c = {'filename', metals_status},
+  sections = {
+    lualine_c = { 'filename', metals_status },
   },
 }
 require("Comment").setup()
@@ -160,7 +160,7 @@ local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- Don't overwrite paste register
-map('n', '<leader>p', '"_dP', { desc = 'Alternate Paste Register'})
+map('n', '<leader>p', '"_dP', { desc = 'Alternate Paste Register' })
 
 -- Telescope
 local telescope_builtin = require('telescope.builtin')
@@ -412,6 +412,7 @@ metals_config.settings = {
   showImplicitArguments = true,
   showImplicitConversionsAndClasses = true,
   showInferredType = true
+  -- serverVersion = "1.1.1-SNAPSHOT"
 }
 
 metals_config.capabilities = capabilities
