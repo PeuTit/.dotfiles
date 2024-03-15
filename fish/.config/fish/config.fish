@@ -1,11 +1,13 @@
+/opt/homebrew/bin/brew shellenv | source
+
 # autostart tmux (check if tmux variable is set to avoid nesting)
 if status is-interactive
 and not set -q TMUX
     tmux new-session -A
 end
 
+# Commands to run in interactive sessions can go here
 if status is-interactive
-    # Commands to run in interactive sessions can go here
     # Git
     abbr -a --global -- gst 'git status'
     abbr -a --global -- ga 'git add'
