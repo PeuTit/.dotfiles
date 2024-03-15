@@ -11,7 +11,7 @@ if status is-interactive
     abbr -a --global -- ga 'git add'
     abbr -a --global -- gaa 'git add --all'
     abbr -a --global -- gc 'git commit -S -v'
-    abbr -a --global -- glo 'git log --decorate --oneline'
+    abbr -a --global -- glo "git log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short"
     abbr -a --global -- gp 'git push'
     abbr -a --global -- gl 'git pull'
     abbr -a --global -- gb 'git branch'
