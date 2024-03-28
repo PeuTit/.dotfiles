@@ -274,6 +274,9 @@ map('n', '<leader>tw', [[:%s/\s\+$//e<cr>]], { desc = '[T]railing [W]hitespace' 
 -- Close all buffers except current
 map('n', '<leader>cba', [[:%bd|e#|bd#<cr>'"]], { desc = '[C]lose [B]uffers [A]ll' })
 
+-- Close one buffers without removing split
+map('n', '<leader>cbo', [[:bp|bd#<cr>'"]], { desc = '[C]lose [B]uffers [O]ne' })
+
 -- List all conflicts to quick fix
 map('n', '<leader>glc', ':GitConflictListQf<cr>', { desc = '[G]it [L]ist [C]onflict' })
 
