@@ -280,6 +280,12 @@ map('n', '<leader>cbo', [[:bp|bd#<cr>'"]], { desc = '[C]lose [B]uffers [O]ne' })
 -- List all conflicts to quick fix
 map('n', '<leader>glc', ':GitConflictListQf<cr>', { desc = '[G]it [L]ist [C]onflict' })
 
+-- Open Quick Fix
+map('n', '<leader>qo', ':copen<cr>', { desc = '[Q]uick Fix [O]pen' })
+
+-- Close Quick Fix
+map('n', '<leader>qc', ':cclose<cr>', { desc = '[Q]uick Fix [C]lose' })
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
