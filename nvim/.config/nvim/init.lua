@@ -46,10 +46,6 @@ vim.o.timeoutlen = 300
 vim.opt.spell = true
 vim.opt.spelllang = "en_gb"
 
-local function metals_status()
-  return vim.g["metals_status"] or ""
-end
-
 -- empty setup using defaults
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -59,9 +55,6 @@ require("gitsigns").setup()
 require("lualine").setup {
   options = {
     theme = 'auto',
-  },
-  sections = {
-    lualine_c = { 'filename', metals_status },
   },
 }
 require("Comment").setup()
@@ -408,7 +401,7 @@ local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = t
 
 local metals_config = require("metals").bare_config()
 
-metals_config.init_options.statusBarProvider = "on"
+metals_config.init_options.statusBarProvider = "off"
 
 -- TODO: uncomment when tree view will be fixed
 --[[ metals_config.tvp = {
