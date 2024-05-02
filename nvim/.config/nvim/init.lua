@@ -230,6 +230,7 @@ local on_attach = function(_, bufnr)
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap('<leader>cl', vim.lsp.codelens.run, '[C]ode [Lens] Run')
 
   nmap('gd', telescope_builtin.lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', telescope_builtin.lsp_references, '[G]oto [R]eferences')
@@ -456,7 +457,15 @@ metals_config.on_attach = function(client, bufnr)
     buffer = bufnr,
     group = nvim_metals_group,
   })
+
+  require("metals").setup_dap()
 end
+
+local dap = require('dap')
+dap.configurations.metals = {
+  runType = "run"
+}
+
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "scala", "sbt", "java" },

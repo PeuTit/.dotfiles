@@ -91,5 +91,7 @@ return require('lazy').setup({
 
   { 'tpope/vim-fugitive' },
 
-  { 'numToStr/navigator.nvim' }
+  { 'numToStr/navigator.nvim' },
+
+  { 'mfussenegger/nvim-dap' }
 })
