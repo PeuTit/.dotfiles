@@ -257,6 +257,15 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
+
+  vim.lsp.inlay_hint.enable(true)
+  -- Toggle inlay hint
+  nmap('<leader>ih', function()
+    local state = vim.lsp.inlay_hint.is_enabled({})
+    print("Toggle Inlay Hint from " .. tostring(state) .. " to " .. tostring(not state))
+
+    vim.lsp.inlay_hint.enable(not state)
+  end, 'Toggle [I]nlay [H]int')
 end
 
 -- Format code
@@ -490,7 +499,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- updatetime: set updatetime for CursorHold
 vim.opt.completeopt = { 'menuone', 'noselect', 'noinsert' }
 vim.opt.shortmess = vim.opt.shortmess + { c = true }
-vim.api.nvim_set_option('updatetime', 300)
+vim.api.nvim_set_option_value('updatetime', 300, {})
 
 -- Set Theme: default to main
 local catppuccin = require('catppuccin')
