@@ -41,6 +41,7 @@ wezterm.on('window-config-reloaded', function(window)
 end)
 
 local font = wezterm.font_with_fallback({
+  'Maple Mono',
   'JetBrains Mono',
   'Apple Color Emoji'
 })
