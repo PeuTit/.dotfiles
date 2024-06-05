@@ -211,6 +211,9 @@ map('n', '<leader>pd', vim.diagnostic.goto_prev, { desc = "[P]revious [D]iagnost
 map('n', '<leader>nd', vim.diagnostic.goto_next, { desc = "[N]ext [D]iagnostic" })
 map('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 
+-- Telescope resume previous search
+map('n', '<leader>rs', telescope_builtin.resume, { desc = "[R]esume [S]earch"})
+
 -- LSP settings.
 --  This function gets run when a LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
