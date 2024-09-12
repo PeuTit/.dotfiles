@@ -93,5 +93,11 @@ return require('lazy').setup({
 
   { 'numToStr/navigator.nvim' },
 
-  { 'mfussenegger/nvim-dap' }
+  { 'mfussenegger/nvim-dap' },
+
+  {
+    'kylechui/nvim-surround',
+    version = '*', -- Use for stability; omit to use `main` branch for the latest features
+    event = 'VeryLazy'
+  }
 })
