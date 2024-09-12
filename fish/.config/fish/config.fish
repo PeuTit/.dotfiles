@@ -29,7 +29,8 @@ if status is-interactive
     abbr -a --global -- gf 'git fetch'
     abbr -a --global -- grs 'git restore'
 
-    abbr -a --global -- l 'ls -la'
+    abbr -a --global -- l 'lsd -lA'
+    abbr -a --global -- b 'bat -p'
 
     abbr -a --global -- rm 'trash'
 
