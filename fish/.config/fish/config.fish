@@ -19,8 +19,8 @@ if status is-interactive
     abbr -a --global -- gb 'git branch'
     abbr -a --global -- gs 'git switch'
     abbr -a --global -- gsm 'git switch master'
-    abbr -a --global -- gswt 'git switch TST-'
-    abbr -a --global -- gld 'git log --decorate -p'
+    abbr -a --global -- gsa 'git switch ACDC-'
+    abbr -a --global -- gld 'git dlog'
     abbr -a --global -- gr 'git rebase'
     abbr -a --global -- grc 'git rebase --continue'
     abbr -a --global -- gra 'git rebase --abort'
@@ -28,6 +28,7 @@ if status is-interactive
     abbr -a --global -- gm 'git merge'
     abbr -a --global -- gf 'git fetch'
     abbr -a --global -- grs 'git restore'
+    abbr -a --global -- gd 'git dft'
 
     abbr -a --global -- l 'lsd -lA'
     abbr -a --global -- b 'bat -p'
