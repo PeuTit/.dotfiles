@@ -35,6 +35,8 @@ if status is-interactive
 
     abbr -a --global -- rm 'trash'
 
+    abbr -a --global -- gg 'lazygit'
+
     fish_vi_key_bindings insert
     set fish_cursor_default block
     set fish_cursor_insert line
