@@ -212,7 +212,7 @@ map('n', '<leader>nd', vim.diagnostic.goto_next, { desc = "[N]ext [D]iagnostic" 
 map('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 
 -- Telescope resume previous search
-map('n', '<leader>rs', telescope_builtin.resume, { desc = "[R]esume [S]earch"})
+map('n', '<leader>rs', telescope_builtin.resume, { desc = "[R]esume [S]earch" })
 
 -- LSP settings.
 --  This function gets run when a LSP connects to a particular buffer.
@@ -341,18 +341,6 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
--- Typescript & Deno configuration
-nvim_lsp.denols.setup {
-  on_attach = on_attach,
-  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
-}
-
-nvim_lsp.tsserver.setup {
-  on_attach = on_attach,
-  root_dir = nvim_lsp.util.root_pattern("package.json"),
-  single_file_support = false
-}
-
 -- Completion Plugin Setup
 local cmp = require('cmp')
 local luasnip = require('luasnip')
@@ -477,7 +465,6 @@ local dap = require('dap')
 dap.configurations.metals = {
   runType = "run"
 }
-
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "scala", "sbt", "java" },
