@@ -37,6 +37,8 @@ if status is-interactive
 
     abbr -a --global -- gg 'lazygit'
 
+    abbr -a --global -- lsk 'keychain --eval id_ed25519 id_ed25519_lunatech'
+
     fish_vi_key_bindings insert
     set fish_cursor_default block
     set fish_cursor_insert line
