@@ -152,6 +152,9 @@ require('nvim-treesitter.configs').setup {
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+-- Save file
+map('n', '<leader>fs', ':w<cr>', { desc = '[F]ile [S]ave' })
+
 -- Don't overwrite paste register
 map('n', '<leader>p', '"_dP', { desc = 'Alternate Paste Register' })
 
