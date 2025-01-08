@@ -41,7 +41,7 @@ wezterm.on('window-config-reloaded', function(window)
 end)
 
 local font = wezterm.font_with_fallback({
-  'Maple Mono',
+  { family = 'Iosevka Term', weight = 'ExtraBold', stretch = 'Expanded', style = 'Normal' },
   'JetBrains Mono',
   'Apple Color Emoji'
 })
@@ -49,7 +49,7 @@ local font = wezterm.font_with_fallback({
 config.font = font
 
 wezterm.on("gui-startup", function()
-  local _, _, window = mux.spawn_window{}
+  local _, _, window = mux.spawn_window {}
   window:gui_window():maximize()
 end)
 
