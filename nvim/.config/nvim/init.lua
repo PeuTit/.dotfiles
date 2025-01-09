@@ -323,7 +323,6 @@ map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
@@ -345,60 +344,7 @@ mason_lspconfig.setup_handlers {
 }
 
 -- Completion Plugin Setup
-local cmp = require('cmp')
-local luasnip = require('luasnip')
-
-luasnip.config.setup {}
-
-cmp.setup({
-  -- Enable LSP snippets
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = {
-    -- Add tab support
-    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    ['<Tab>'] = cmp.mapping.select_next_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    })
-  },
-  -- Installed sources:
-  sources = {
-    { name = 'luasnip' },
-    { name = 'nvim_lsp',               keyword_length = 3 }, -- from language server
-    { name = 'nvim_lsp_signature_help' },                    -- display function signatures with current parameter emphasized
-    { name = 'buffer',                 keyword_length = 2 }, -- source current buffer
-    { name = 'path' },                                       -- file paths
-    { name = 'calc' },                                       -- source for maths calculation
-  },
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
-  formatting = {
-    fields = { 'menu', 'abbr', 'kind' },
-    format = function(entry, item)
-      local menu_icon = {
-        nvim_lsp = 'λ',
-        vsnip = '⋗',
-        buffer = 'Ω',
-        path = '🖫',
-      }
-      item.menu = menu_icon[entry.source.name]
-      return item
-    end,
-  },
-  view = {
-    entries = "native",
-  }
-})
+require('blink.cmp')
 
 -- metals configuration
 local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
@@ -483,17 +429,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   group = nvim_metals_group,
 })
 
---Set completeopt to have a better completion experience
--- :help completeopt
--- menuone: pop-up even when there's only one match
--- noinsert: Do not insert text until a selection is made
--- noselect: Do not select, force to select one from the menu
--- shortness: avoid showing extra messages when using completion
--- updatetime: set updatetime for CursorHold
-vim.opt.completeopt = { 'menuone', 'noselect', 'noinsert' }
-vim.opt.shortmess = vim.opt.shortmess + { c = true }
-vim.api.nvim_set_option_value('updatetime', 300, {})
-
 -- Set Theme: default to main
 local catppuccin = require('catppuccin')
 
@@ -542,4 +477,4 @@ require("ibl").setup({ scope = { highlight = highlight } })
 
 require("Navigator").setup({ disable_on_zoom = true, mux = "auto" })
 
-require("nvim-surround").setup()
+require("mini.surround").setup()
