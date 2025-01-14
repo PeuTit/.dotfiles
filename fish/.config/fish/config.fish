@@ -37,6 +37,8 @@ if status is-interactive
 
     abbr -a --global -- bbb 'brew update && brew upgrade && brew cleanup'
 
+    abbr -a --global -- hledger 'hledger --file ~/Documents/accounting/finance/2025.journal'
+
     fish_vi_key_bindings insert
     set fish_cursor_default block
     set fish_cursor_insert line
