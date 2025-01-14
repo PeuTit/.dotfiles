@@ -478,3 +478,5 @@ require("ibl").setup({ scope = { highlight = highlight } })
 require("Navigator").setup({ disable_on_zoom = true, mux = "auto" })
 
 require("mini.surround").setup()
+
+require('csvview').setup()

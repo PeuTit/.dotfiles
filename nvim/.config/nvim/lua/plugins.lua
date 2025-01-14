@@ -145,5 +145,7 @@ return require('lazy').setup({
 
   { 'mfussenegger/nvim-dap' },
 
-  { 'echasnovski/mini.surround', version = '*' }
+  { 'echasnovski/mini.surround', version = '*' },
+
+  { 'hat0uma/csvview.nvim' }
 })
