@@ -280,12 +280,6 @@ map('n', '<leader>fm', ':Format<cr>', { desc = '[F]or[M]at' })
 -- Remove trailing white space
 map('n', '<leader>tw', [[:%s/\s\+$//e<cr>]], { desc = '[T]railing [W]hitespace' })
 
--- Close all buffers except current
-map('n', '<leader>cba', [[:%bd|e#|bd#<cr>'"]], { desc = '[C]lose [B]uffers [A]ll' })
-
--- Close one buffers without removing split
-map('n', '<leader>cbo', [[:bp|bd#<cr>'"]], { desc = '[C]lose [B]uffers [O]ne' })
-
 -- List all conflicts to quick fix
 map('n', '<leader>glc', ':GitConflictListQf<cr>', { desc = '[G]it [L]ist [C]onflict' })
 
@@ -478,5 +472,22 @@ require("ibl").setup({ scope = { highlight = highlight } })
 require("Navigator").setup({ disable_on_zoom = true, mux = "auto" })
 
 require("mini.surround").setup()
+
+-- Close one buffer
+map('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = "Delete Buffer" })
+
+-- Close all buffers except current
+map('n', '<leader>cba', function()
+    Snacks.bufdelete.all(opts)
+  end,
+  { desc = '[C]lose [B]uffers [A]ll' }
+)
+
+-- Close one buffers without removing split
+map('n', '<leader>cbo', function()
+    Snacks.bufdelete.other(opts)
+  end,
+  { desc = '[C]lose [B]uffers [O]ne' }
+)
 
 require('csvview').setup()
