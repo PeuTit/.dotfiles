@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-;; (setq user-full-name "John Doe"
-;;       user-mail-address "john@doe.com")
+(setq user-full-name "PeuTit"
+      user-mail-address "guiochettitouan@icloud.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -40,7 +40,18 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Documents/notes/")
+(setq org-directory "~/Documents/notes/personal/")
+
+;; Org capture custom template
+(setq org-capture-templates
+      '(
+        ("j" "Journal" entry (file+datetree "~/Documents/notes/personal/journal.org")
+         "* %?\n %i\n  %a")
+        ("t" "Todo" entry (file+datetree "~/Documents/notes/personal/todos.org")
+         "* %?\n %i\n  %a")
+        ("w" "Work Log" entry (file+datetree "~/Documents/notes/work/work-logs.org")
+         "* %?\n %i\n  %a")
+        ))
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
@@ -74,3 +85,14 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;; Hledger configuration
+(use-package! hledger-mode)
+;; To open files with .journal extension in hledger-mode
+(add-to-list 'auto-mode-alist '("\\.journal\\'" . hledger-mode))
+;; Provide the path to you journal file.
+;; The default location is too opinionated.
+(setq hledger-jfile "~/Documents/accounting/finance/2025.journal")
+;; For easily adjusting dates.
+(define-key hledger-mode-map (kbd "<kp-add>") 'hledger-increment-entry-date)
+(define-key hledger-mode-map (kbd "<kp-subtract>") 'hledger-decrement-entry-date)
