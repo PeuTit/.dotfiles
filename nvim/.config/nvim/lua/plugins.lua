@@ -105,11 +105,7 @@ return require('lazy').setup({
     'nvim-telescope/telescope.nvim',
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-fzy-native.nvim' },
-      { 'jonarrien/telescope-cmdline.nvim' }
-    },
-    keys = {
-      { 'Q', '<cmd>Telescope cmdline<cr>', desc = 'Cmdline' }
+      { 'nvim-telescope/telescope-fzy-native.nvim' }
     },
   },
 
