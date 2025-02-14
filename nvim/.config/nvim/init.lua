@@ -1,3 +1,7 @@
+-- @PeuTit
+--
+-- crozes-hermitage
+
 -- Set leader key to <Space>
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '

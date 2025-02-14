@@ -1,5 +1,3 @@
--- This file can be loaded by calling `require('plugins')` from your init.lua
-
 return require('lazy').setup({
   -- Snacks
   {
