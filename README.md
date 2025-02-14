@@ -86,3 +86,15 @@ and just copy the two following line
 auth     optional     pam_reattach.so
 auth     sufficient   pam_tid.so
 ```
+
+## WezTerm
+
+### Fonts
+
+I tried the following fonts before:
+``` lua
+{ family = 'Iosevka Term', weight = 'ExtraBold', stretch = 'Expanded', style = 'Normal' },
+{ family = 'Iosevka',        weight = 'Regular',   stretch = 'Normal', style = 'Normal' },
+{ family = 'Iosevka Fixed',  weight = 'Regular',   stretch = 'Normal', style = 'Normal' },
+```
+For some reason, `Iosevka` and its variant make WezTerm super duper slow when resizing.

@@ -41,8 +41,8 @@ wezterm.on('window-config-reloaded', function(window)
 end)
 
 local font = wezterm.font_with_fallback({
-  { family = 'Iosevka Term', weight = 'ExtraBold', stretch = 'Expanded', style = 'Normal' },
-  'JetBrains Mono',
+  { family = 'Menlo',          weight = 'Bold',      stretch = 'Normal', style = 'Normal' },
+  { family = 'JetBrains Mono', weight = 'ExtraBold', stretch = 'Normal', style = 'Normal' },
   'Apple Color Emoji'
 })
 
