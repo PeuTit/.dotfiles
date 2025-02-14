@@ -15,7 +15,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("plugins")
+require("crozes-hermitage/plugins")
 
 -- Set terminal colour
 vim.g.termguicolors = true
