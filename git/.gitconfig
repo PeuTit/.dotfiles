@@ -29,3 +29,4 @@
 [alias]
   dft = difftool
   dlog = -c diff.external=difft log -p --ext-diff
+  dshow = -c diff.external=difft show --ext-diff
