@@ -1,5 +1,14 @@
 /opt/homebrew/bin/brew shellenv | source
 
+# fzf.fish extra config
+fzf_configure_bindings --directory=\cf
+set --global fzf_preview_dir_cmd lsd -A --color never
+set --global fzf_preview_file_cmd bat -p --color never
+set --global fzf_fd_opts --no-ignore
+# Set up fzf key bindings
+fzf --fish | source
+set --global --export FZF_DEFAULT_OPTS '--height 40% --tmux bottom,40% --layout reverse --border sharp'
+
 # Commands to run in interactive sessions can go here
 if status is-interactive
     # Git
@@ -46,7 +55,6 @@ if status is-interactive
 
     set fish_greeting
 
-    # add coursier to path
     switch (uname)
     case Darwin
         # macos specific config goes here
