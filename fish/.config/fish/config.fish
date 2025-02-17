@@ -32,6 +32,7 @@ if status is-interactive
     abbr -a --global -- gf 'git fetch'
     abbr -a --global -- grs 'git restore'
     abbr -a --global -- gd 'git dft'
+    abbr -a --global -- gsh 'git dshow'
 
     abbr -a --global -- l 'lsd -lA'
     abbr -a --global -- b 'bat -p'
