@@ -9,6 +9,18 @@ set --global fzf_fd_opts --no-ignore
 fzf --fish | source
 set --global --export FZF_DEFAULT_OPTS '--height 40% --tmux bottom,40% --layout reverse --border sharp'
 
+# create tmux session from current directory
+function start_tmux_from_directory
+    # current directory without leading path
+    set dir (basename $PWD)
+    # md5 hash for the full working directory path
+    set md5 (echo -n $PWD | md5sum | cut -d ' ' -f 1)
+    # human friendly unique session name for this directory
+    set session_name "$dir"-(string shorten --char="" --max 6 $md5)
+    # create or attach to the session
+    tmux new -Ads "$session_name"
+end
+
 # Commands to run in interactive sessions can go here
 if status is-interactive
     # Git
@@ -48,6 +60,8 @@ if status is-interactive
     abbr -a --global -- bbb 'brew update && brew upgrade && brew cleanup'
 
     abbr -a --global -- hledger 'hledger --file ~/Documents/accounting/finance/2025.journal'
+
+    abbr -a --global -- tds start_tmux_from_directory
 
     fish_vi_key_bindings insert
     set fish_cursor_default block
