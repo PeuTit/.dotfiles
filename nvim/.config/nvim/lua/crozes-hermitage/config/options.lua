@@ -3,10 +3,6 @@ local map = require('crozes-hermitage.utils').map
 -- Set terminal colour
 vim.g.termguicolors = true
 
--- Disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- Set number
 vim.opt.number = true
 vim.opt.relativenumber = true
