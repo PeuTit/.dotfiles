@@ -50,3 +50,16 @@ map('n', '<leader>qc', ':cclose<cr>', { desc = '[Q]uick Fix [C]lose' })
 
 -- Make Space useless in normal mode
 map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+-- Lua goodies
+map('n', '<leader><leader>x', '<cmd>source %<cr>', { desc = 'Source the current file' })
+map('n', '<leader>x', ':.lua <cr>', { desc = 'Execute the  current line' })
+map('v', '<leader>x', ':lua <cr>', { desc = 'Execute the  current line' })
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
