@@ -48,12 +48,6 @@ return {
       -- Treesitter
       map("n", "<leader>st", telescope_builtin.treesitter, { desc = '[S]earch [T]reesitter' })
 
-      -- Diagnostic
-      map('n', '<leader>sd', telescope_builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      map('n', '<leader>pd', vim.diagnostic.goto_prev, { desc = "[P]revious [D]iagnostic" })
-      map('n', '<leader>nd', vim.diagnostic.goto_next, { desc = "[N]ext [D]iagnostic" })
-      map('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open Floating Diagnostic Message" })
-
       map('n', '<leader>sr', telescope_builtin.resume, { desc = "[S]earch [R]esume" })
 
       map('n', '<leader>en', function()
