@@ -14,28 +14,13 @@ return {
         nerd_font_variant = 'mono'
       },
 
-      sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
-      },
-
       cmdline = {
         enabled = false
       },
 
-      completion = {
-        keyword = {
-          range = 'prefix'
-        },
-        trigger = {
-          show_on_trigger_character = true
-        },
-        list = {
-          selection = { preselect = true, auto_insert = true }
-        },
-        documentation = {
-          auto_show = true
-        }
-      }
+      signature = {
+        enabled = true
+      },
     },
   },
 }

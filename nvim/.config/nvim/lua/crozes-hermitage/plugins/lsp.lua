@@ -52,6 +52,7 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
+      'saghen/blink.cmp',
       {
         "folke/lazydev.nvim",
         ft = "lua", -- only load on lua files
@@ -64,25 +65,29 @@ return {
       },
     },
     config = function()
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
       on_attach()
-      require('lspconfig').lua_ls.setup {}
-      require('lspconfig').rust_analyzer.setup {}
+      require('lspconfig').lua_ls.setup { capabilities = capabilities }
+      require('lspconfig').rust_analyzer.setup { capabilities = capabilities }
     end,
   },
   -- Metals & Plenary
   {
     "scalameta/nvim-metals",
     dependencies = {
+      'saghen/blink.cmp',
       "nvim-lua/plenary.nvim",
     },
     ft = { "scala", "sbt", "java" },
     opts = function()
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
       local metals_config = require("metals").bare_config()
 
       metals_config.init_options.statusBarProvider = "off"
       metals_config.on_attach = function(client, bufnr)
         on_attach(client, bufnr)
       end
+      metals_config.capabilities = capabilities
 
       return metals_config
     end,
@@ -96,10 +101,9 @@ return {
         end,
         group = nvim_metals_group,
       })
-    local telescope_extension = require('telescope').extensions
+      local telescope_extension = require('telescope').extensions
 
-    map("n", "<leader>mc", telescope_extension.metals.commands, { desc = '[M]etals [C]ommands' })
-
+      map("n", "<leader>mc", telescope_extension.metals.commands, { desc = '[M]etals [C]ommands' })
     end
   }
 }
