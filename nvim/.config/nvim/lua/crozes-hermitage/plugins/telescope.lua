@@ -38,6 +38,10 @@ return {
         { desc = '[/] Fuzzily search in current buffer' })
       map('n', '<leader>lg', telescope_builtin.live_grep, { desc = '[L]ive [G]rep' })
 
+      map('n', '<leader>lm', function()
+        require('crozes-hermitage.plugins.telescope.custom').live_multigrep()
+      end, { desc = '[L]ive [M]ultigrep' })
+
       map('n', '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp' })
 
       map('n', '<leader>sk', telescope_builtin.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -55,6 +59,12 @@ return {
           cwd = vim.fn.stdpath('config')
         }
       end, { desc = 'Search Current Config' })
+      map('n', '<leader>ep', function()
+        telescope_builtin.find_files {
+          ---@diagnostic disable-next-line: param-type-mismatch
+          cwd = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy')
+        }
+      end, { desc = 'Search Current Packages' })
 
       -- Commands
       map('n', '<leader>sc', telescope_builtin.commands, { desc = '[S]earch [C]ommands' })
