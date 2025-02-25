@@ -24,6 +24,5 @@ require("lazy").setup({
     { import = "crozes-hermitage.plugins" },
     { import = "crozes-hermitage.plugins.theme" },
   },
-  -- automatically check for plugin updates
-  checker = { enabled = true },
+  checker = { enabled = false },
 })
