@@ -34,11 +34,11 @@ map('n', '<leader>fs', ':w<cr>', { desc = '[F]ile [S]ave' })
 -- Remove trailing white space
 map('n', '<leader>tw', [[:%s/\s\+$//e<cr>]], { desc = '[T]railing [W]hitespace' })
 
--- Open Quick Fix
-map('n', '<leader>qo', ':copen<cr>', { desc = '[Q]uick Fix [O]pen' })
-
--- Close Quick Fix
-map('n', '<leader>qc', ':cclose<cr>', { desc = '[Q]uick Fix [C]lose' })
+-- Quickfix
+map('n', '<leader>qo', '<cmd>copen<cr>', { desc = '[Q]uickfix [O]pen' })
+map('n', '<leader>qc', '<cmd>cclose<cr>', { desc = '[Q]uickfix [C]lose' })
+map('n', '<M-n>', '<cmd>cnext<cr>', { desc = '[Q]uickfix [N]ext' })
+map('n', '<M-p>', '<cmd>cprev<cr>', { desc = '[Q]uickfix [P]revious' })
 
 -- Lua goodies
 map('n', '<leader><leader>x', '<cmd>source %<cr>', { desc = 'Source the current file' })
