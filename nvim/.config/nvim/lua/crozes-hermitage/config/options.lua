@@ -39,9 +39,6 @@ map('n', '<leader>fm', ':Format<cr>', { desc = '[F]or[M]at' })
 -- Remove trailing white space
 map('n', '<leader>tw', [[:%s/\s\+$//e<cr>]], { desc = '[T]railing [W]hitespace' })
 
--- List all conflicts to quick fix
-map('n', '<leader>glc', ':GitConflictListQf<cr>', { desc = '[G]it [L]ist [C]onflict' })
-
 -- Open Quick Fix
 map('n', '<leader>qo', ':copen<cr>', { desc = '[Q]uick Fix [O]pen' })
 
