@@ -1,3 +1,5 @@
+local map = require('crozes-hermitage.utils').map
+
 local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local make_entry = require('telescope.make_entry')
@@ -5,7 +7,7 @@ local conf = require('telescope.config').values
 
 local M = {}
 
-M.live_multigrep = function(opts)
+local live_multigrep = function(opts)
   opts = opts or {}
   opts.cwd = opts.cwd or vim.uv.cwd()
 
@@ -41,9 +43,14 @@ M.live_multigrep = function(opts)
     debounce = 100,
     prompt_title = 'Live MultiGrep',
     finder = finder,
-    previewer = conf.grep_previewer(opts),
+    previewer = conf.previewer(opts),
+    -- previewer = conf.grep_previewer(opts),
     sorter = require('telescope.sorters').empty()
   }):find()
+end
+
+M.setup = function()
+  map('n', '<leader>lm', live_multigrep, { desc = '[L]ive [M]ultigrep' })
 end
 
 return M

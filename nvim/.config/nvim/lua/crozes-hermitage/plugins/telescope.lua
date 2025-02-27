@@ -38,10 +38,6 @@ return {
         { desc = '[/] Fuzzily search in current buffer' })
       map('n', '<leader>lg', telescope_builtin.live_grep, { desc = '[L]ive [G]rep' })
 
-      map('n', '<leader>lm', function()
-        require('crozes-hermitage.plugins.telescope.custom').live_multigrep()
-      end, { desc = '[L]ive [M]ultigrep' })
-
       map('n', '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp' })
 
       map('n', '<leader>sk', telescope_builtin.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -81,6 +77,8 @@ return {
       map('n', '<leader>sl', telescope_builtin.loclist, { desc = '[S]earch Location List' })
       map('n', '<leader>sm', telescope_builtin.marks, { desc = '[S]earch Marks' })
       map('n', '<leader>sC', telescope_builtin.colorscheme, { desc = '[S]earch Colorschemes' })
+
+      require('crozes-hermitage.plugins.telescope.custom').setup()
     end
   }
 }
