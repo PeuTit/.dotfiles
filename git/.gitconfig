@@ -1,7 +1,10 @@
 [user]
-	name = Titouan Guiochet
+	name = PeuTit
 	email = 22703571+PeuTit@users.noreply.github.com
 	signingkey = 75D8EC9768100B92
+
+[includeIf "gitdir:~/Documents/lunatech/"]
+  path = .gitconfig_lunatech
 
 [color]
 	ui = true
@@ -49,9 +52,6 @@
   autoSquash = true
   autoStash = true
   updateRefs = true
-
-[includeIf "gitdir:~/Documents/work/lunatech/"]
-  path = .gitconfig_lunatech
 
 [diff]
   algorithm = histogram
