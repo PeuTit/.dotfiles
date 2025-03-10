@@ -17,7 +17,7 @@ config.window_padding = {
   bottom = 0,
 }
 
-config.font_size = 11.0
+config.font_size = 16.0
 
 local dark_theme = 'Londontube (dark) (terminal.sexy)'
 local light_theme = 'Londontube (light) (terminal.sexy)'
