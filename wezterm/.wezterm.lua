@@ -53,6 +53,8 @@ wezterm.on("gui-startup", function()
   window:gui_window():maximize()
 end)
 
+config.default_prog = { '/usr/local/bin/fish', '-l' }
+
 config.automatically_reload_config = true
 
 return config
