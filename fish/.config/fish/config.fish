@@ -55,8 +55,6 @@ if status is-interactive
 
     abbr -a --global -- lsk 'keychain --eval id_ed25519 id_ed25519_lunatech'
 
-    abbr -a --global -- emacs 'emacs -nw'
-
     abbr -a --global -- bbb 'brew update && brew upgrade && brew cleanup'
 
     abbr -a --global -- hledger 'hledger --file ~/Documents/accounting/finance/2025.journal'
