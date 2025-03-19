@@ -38,6 +38,9 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       theme = 'auto',
+      sections = {
+        lualine_y = { "lsp_status" },
+      },
     }
   },
   -- Indent Rainbow
