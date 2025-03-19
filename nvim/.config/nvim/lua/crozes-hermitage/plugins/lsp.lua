@@ -1,5 +1,7 @@
 local map = require('crozes-hermitage.utils').map
 
+local lsp_group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+
 --  This function gets run when a LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)
@@ -30,7 +32,10 @@ local on_attach = function(_, bufnr)
   -- Telescope
   local telescope_builtin = require('telescope.builtin')
 
-  nmap('gd', telescope_builtin.lsp_definitions, 'Goto Definition')
+  nmap('gd', function()
+    local opts = require('telescope.themes').get_ivy()
+    telescope_builtin.lsp_definitions(opts)
+  end, 'Goto Definition')
   nmap('gr', telescope_builtin.lsp_references, 'References')
   nmap('gI', telescope_builtin.lsp_implementations, 'Goto Implementation')
   nmap('<leader>gt', telescope_builtin.lsp_type_definitions, 'Goto Type Definition')
@@ -46,6 +51,25 @@ local on_attach = function(_, bufnr)
   map('n', '<leader>pd', vim.diagnostic.goto_prev, { desc = "[P]revious [D]iagnostic" })
   map('n', '<leader>nd', vim.diagnostic.goto_next, { desc = "[N]ext [D]iagnostic" })
   map('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open Floating Diagnostic Message" })
+
+  -- Cursor Highlight
+  vim.api.nvim_create_autocmd("CursorHold", {
+    callback = vim.lsp.buf.document_highlight,
+    buffer = bufnr,
+    group = lsp_group,
+    desc = "Document Highlight",
+  })
+  vim.api.nvim_create_autocmd("CursorMoved", {
+    callback = vim.lsp.buf.clear_references,
+    buffer = bufnr,
+    group = lsp_group,
+    desc = "Clear All the References",
+  })
+  vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+    callback = vim.lsp.codelens.refresh,
+    buffer = bufnr,
+    group = lsp_group,
+  })
 end
 
 return {
@@ -91,18 +115,26 @@ return {
         on_attach(client, bufnr)
       end
       metals_config.capabilities = capabilities
+      metals_config.settings = {
+        superMethodLensesEnabled = true,
+        inlayHints = {
+          hintsInPatternMatch = { enable = true },
+          implicitArguments = { enable = true },
+          implicitConversions = { enable = true },
+          inferredTypes = { enable = true },
+          typeParameters = { enable = true },
+        }
+      }
 
       return metals_config
     end,
     config = function(self, metals_config)
-      local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
-
       vim.api.nvim_create_autocmd("FileType", {
         pattern = self.ft,
         callback = function()
           require("metals").initialize_or_attach(metals_config)
         end,
-        group = nvim_metals_group,
+        group = lsp_group,
       })
       local telescope_extension = require('telescope').extensions
 
