@@ -1,15 +1,7 @@
-(setq inhibit-startup-message t)
-
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
-(tooltip-mode -1)           ; Disable tooltips
-(set-fringe-mode 10)        ; Give some breathing room
-
-(menu-bar-mode -1)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
-(load-theme 'whiteboard)
 
 (defvar elpaca-installer-version 0.10)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
@@ -66,13 +58,33 @@
 ;;For example:
 ;;(use-package general :ensure (:wait t) :demand t)
 
-;; Expands to: (elpaca evil (use-package evil :demand t))
 (use-package evil
     :ensure t
     :init
     (setq evil-want-keybinding nil)
+    (setq evil-want-C-u-scroll t)
     :config
-    (evil-mode 1))
+    (evil-mode 1)
+
+    (define-key evil-normal-state-map (kbd "C-g") 'evil-normal-state)
+
+    (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+    (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+    (evil-set-leader 'normal (kbd "<SPC>"))
+
+    (evil-define-key 'normal 'global (kbd "<leader>fs") 'save-buffer)
+    (evil-define-key 'normal 'global (kbd "<leader>sf") 'find-file)
+    (evil-define-key 'normal 'global (kbd "<leader>x") 'eval-buffer)
+    (evil-define-key 'normal 'global (kbd "<leader><SPC>") 'list-buffers))
+
+(use-package undo-tree
+  :ensure t
+  :after evil
+  :diminish
+  :config
+  (evil-set-undo-system 'undo-tree)
+  (global-undo-tree-mode 1))
 
 (use-package evil-collection
     :after evil
@@ -83,19 +95,58 @@
 (use-package evil-tutor
     :ensure t)
 
-;;Turns off elpaca-use-package-mode current declaration
-;;Note this will cause evaluate the declaration immediately. It is not deferred.
-;;Useful for configuring built-in emacs features.
-(use-package emacs :ensure nil :config (setq ring-bell-function #'ignore))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(whiteboard)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;;Completion
+(setf completion-styles '(basic flex))
+(setf completion-styles '(basic flex)
+      completion-auto-select t ;; Show completion on first call
+      completion-auto-help 'visible ;; Display *Completions* upon first request
+      completions-format 'one-column ;; Use only one column
+      completions-sort 'historical ;; Order based on minibuffer history
+      completions-max-height 20 ;; Limit completions to 15 (completions start at line 5)
+      completion-ignore-case t)
+
+;;Modeline (the status line at the bottom)
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+
+(use-package nerd-icons :ensure t)
+
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-one t)
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config)
+)
+
+;;Surround
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
+
+(which-key-mode 1)
+
+(global-visual-line-mode t)
+
+(setq mac-right-option-modifier 'none)
+
+;;Projectile
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-project-search-path '("~/Documents/lunatech/" "~/Documents/accounting" "~/Documents/coding/" "~/Documents/notes/"))
+  :config
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (setq projectile-switch-project-action #'projectile-dired)
+  (projectile-mode +1))
+
+;; Magit
+(use-package magit
+  :ensure t)
+
