@@ -1,6 +1,9 @@
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
 
+(custom-set-faces
+   '(default ((t (:height 160 :family "Menlo" :weight bold)))))
+
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (defvar elpaca-installer-version 0.10)
@@ -75,8 +78,7 @@
 
     (evil-define-key 'normal 'global (kbd "<leader>fs") 'save-buffer)
     (evil-define-key 'normal 'global (kbd "<leader>sf") 'find-file)
-    (evil-define-key 'normal 'global (kbd "<leader>x") 'eval-buffer)
-    (evil-define-key 'normal 'global (kbd "<leader><SPC>") 'list-buffers))
+    (evil-define-key 'normal 'global (kbd "<leader>x") 'eval-buffer))
 
 (use-package undo-tree
   :ensure t
@@ -84,6 +86,7 @@
   :diminish
   :config
   (evil-set-undo-system 'undo-tree)
+  (setq undo-tree-history-directory-alist '(("." . "~/.config/emacs/undo")))
   (global-undo-tree-mode 1))
 
 (use-package evil-collection
@@ -146,7 +149,32 @@
   (setq projectile-switch-project-action #'projectile-dired)
   (projectile-mode +1))
 
-;; Magit
-(use-package magit
-  :ensure t)
+;;IDO
+(require 'ido)
+(ido-mode 1)
 
+;;Perspective
+(use-package perspective
+  :ensure t
+  :bind
+  ("<leader><SPC>" . ido-switch-buffer)         ; or use a nicer switcher, see below
+  :custom
+  (persp-mode-prefix-key (kbd "C-SPC"))  ; pick your own prefix key here
+  :init
+  (persp-mode))
+
+;;org
+(defun ch/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (auto-fill-mode 0)
+  (setq evil-auto-indent nil))
+
+(use-package org
+  :ensure t
+  :config
+  (setq org-ellipsis " ▼"))
+
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c c") #'org-capture)
