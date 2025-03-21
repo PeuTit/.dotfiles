@@ -53,8 +53,6 @@ if status is-interactive
 
     abbr -a --global -- gg 'lazygit'
 
-    abbr -a --global -- lsk 'keychain --eval id_ed25519 id_ed25519_lunatech'
-
     abbr -a --global -- bbb 'brew update && brew upgrade && brew cleanup'
 
     abbr -a --global -- hledger 'hledger --file ~/Documents/accounting/finance/2025.journal'
@@ -73,7 +71,7 @@ if status is-interactive
         # macos specific config goes here
         fish_add_path --path "$HOME/Library/Application Support/Coursier/bin"
         fish_add_path --path "$HOME/.cargo/bin"
-        fish_add_path --path "$HOME/.config/emacs/bin"
+        fish_add_path --path "$HOME/.local/bin" # pipx
     case Linux
         # linux specific config goes here
         fish_add_path --path $HOME/.local/share/coursier/bin
