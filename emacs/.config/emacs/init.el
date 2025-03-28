@@ -163,16 +163,21 @@
 
 ;;org
 (defun ch/org-mode-setup ()
-  (org-indent-mode)
-  (variable-pitch-mode 1)
-  (auto-fill-mode 0)
-  (setq evil-auto-indent nil))
+  (org-indent-mode))
 
 (use-package org
   :ensure t
+  :hook (org-mode . ch/org-mode-setup)
   :config
+  (setq org-agenda-files
+	'("~/Documents/notes/personal/journal.org"
+	  "~/Documents/lunatech/notes/work-logs.org"))
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-log-done 'note)
+  (setq org-log-into-drawer t)
   (setq org-ellipsis " ▼"))
 
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
+(global-set-key (kbd "<leader>st") (lambda () (interactive) (call-interactively 'org-show-todo-tree)))
