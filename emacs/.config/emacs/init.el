@@ -146,9 +146,8 @@
   (setq projectile-completion-system 'default)
   (projectile-mode +1))
 
-;;IDO
-(require 'ido)
-(ido-mode 1)
+;;F-IDO
+(fido-vertical-mode 1)
 
 ;;Perspective
 (use-package perspective
