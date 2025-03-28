@@ -153,9 +153,11 @@
 (use-package perspective
   :ensure t
   :bind
-  ("<leader><SPC>" . ido-switch-buffer)         ; or use a nicer switcher, see below
+  ("<leader><SPC>" . switch-to-buffer)
   :custom
   (persp-mode-prefix-key (kbd "C-SPC"))  ; pick your own prefix key here
+  (persp-sort 'created)
+  (persp-show-modestring 'header)
   :init
   (persp-mode))
 
