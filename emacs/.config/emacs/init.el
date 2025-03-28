@@ -205,3 +205,13 @@
 (use-package visual-fill-column
   :ensure t
   :hook (org-mode . ch/org-mode-visual-fill))
+
+;; magit
+(use-package transient
+  :ensure t)
+
+(use-package magit
+  :ensure t
+  :after transient)
+
+(global-set-key (kbd "<leader>sg") #'magit)
