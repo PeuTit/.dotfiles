@@ -189,3 +189,9 @@
 ;; backup
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))))
+
+;; autosave
+(make-directory (expand-file-name "auto-saves/" user-emacs-directory) t)
+
+(setq auto-save-list-file-prefix (expand-file-name "auto-saves/sessions/" user-emacs-directory)
+      auto-save-file-name-transforms `((".*" ,(expand-file-name "auto-saves/" user-emacs-directory) t)))
