@@ -181,3 +181,6 @@
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 (global-set-key (kbd "<leader>st") (lambda () (interactive) (call-interactively 'org-show-todo-tree)))
+
+;; dired
+(global-set-key (kbd "<leader>sd") #'dired-jump)
