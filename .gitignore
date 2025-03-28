@@ -16,4 +16,9 @@ emacs/.config/emacs/projects
 emacs/.config/emacs/undo
 emacs/.config/emacs/eshell
 emacs/.config/emacs/auto-save-list
+emacs/.config/emacs/auto-saves
 emacs/.config/emacs/projectile-bookmarks.eld
+emacs/.config/emacs/backups
+emacs/.config/emacs/games
+emacs/.config/emacs/bookmarks
+emacs/.config/emacs/ido.last
