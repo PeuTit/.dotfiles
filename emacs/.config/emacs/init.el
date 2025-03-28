@@ -142,7 +142,8 @@
   (setq projectile-project-search-path '("~/Documents/lunatech/" "~/Documents/accounting" "~/Documents/coding/" "~/Documents/notes/"))
   :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (setq projectile-switch-project-action #'projectile-dired)
+  (setq projectile-switch-project-action #'projectile-find-file)
+  (setq projectile-completion-system 'default)
   (projectile-mode +1))
 
 ;;IDO
