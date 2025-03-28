@@ -195,3 +195,13 @@
 
 (setq auto-save-list-file-prefix (expand-file-name "auto-saves/sessions/" user-emacs-directory)
       auto-save-file-name-transforms `((".*" ,(expand-file-name "auto-saves/" user-emacs-directory) t)))
+
+(defun ch/org-mode-visual-fill ()
+  (setq visual-fill-column-width 100
+	visual-fill-column-center-text t)
+	(visual-fill-column-mode 1))
+
+;; visual fill column
+(use-package visual-fill-column
+  :ensure t
+  :hook (org-mode . ch/org-mode-visual-fill))
