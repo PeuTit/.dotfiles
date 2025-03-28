@@ -184,3 +184,8 @@
 
 ;; dired
 (global-set-key (kbd "<leader>sd") #'dired-jump)
+
+;; keep emacs folder clean
+;; backup
+(setq backup-directory-alist
+      `(("." . ,(concat user-emacs-directory "backups"))))
