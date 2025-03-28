@@ -86,7 +86,7 @@
   :diminish
   :config
   (evil-set-undo-system 'undo-tree)
-  (setq undo-tree-history-directory-alist '(("." . "~/.config/emacs/undo")))
+  (setq undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo"))))
   (global-undo-tree-mode 1))
 
 (use-package evil-collection
@@ -95,11 +95,7 @@
     :config
     (evil-collection-init))
 
-(use-package evil-tutor
-    :ensure t)
-
 ;;Completion
-(setf completion-styles '(basic flex))
 (setf completion-styles '(basic flex)
       completion-auto-select t ;; Show completion on first call
       completion-auto-help 'visible ;; Display *Completions* upon first request
