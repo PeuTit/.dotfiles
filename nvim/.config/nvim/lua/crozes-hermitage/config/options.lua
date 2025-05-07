@@ -25,6 +25,10 @@ vim.o.timeoutlen = 300
 vim.opt.spell = true
 vim.opt.spelllang = "en_gb"
 
+-- Search case
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
 -- Make Space useless in normal mode
 map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
