@@ -3,7 +3,7 @@ local map = require('crozes-hermitage.utils').map
 local lsp_group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
 
 --  This function gets run when a LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -13,9 +13,7 @@ local on_attach = function(_, bufnr)
   end
 
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-  nmap('<leader>gr', vim.lsp.buf.references, 'References')
+  nmap('gd', vim.lsp.buf.definition, '[G]o to [D]efinition')
   nmap('<leader>fm', vim.lsp.buf.format, '[F]or[M]at current buffer with LSP')
   nmap('<leader>cl', vim.lsp.codelens.run, '[C]ode [L]ens Run')
 
@@ -32,12 +30,12 @@ local on_attach = function(_, bufnr)
   -- Telescope
   local telescope_builtin = require('telescope.builtin')
 
-  nmap('gd', function()
+  nmap('<leader>gd', function()
     local opts = require('telescope.themes').get_ivy()
     telescope_builtin.lsp_definitions(opts)
   end, 'Goto Definition')
-  nmap('gr', telescope_builtin.lsp_references, 'References')
-  nmap('gI', telescope_builtin.lsp_implementations, 'Goto Implementation')
+  nmap('<leader>gr', telescope_builtin.lsp_references, 'References')
+  nmap('<leader>gI', telescope_builtin.lsp_implementations, 'Goto Implementation')
   nmap('<leader>gt', telescope_builtin.lsp_type_definitions, 'Goto Type Definition')
   nmap('<leader>ds', telescope_builtin.lsp_document_symbols, 'Document Symbols')
   nmap('<leader>ws', telescope_builtin.lsp_workspace_symbols, 'Workspace Symbols')
@@ -47,29 +45,31 @@ local on_attach = function(_, bufnr)
   nmap('<leader>go', telescope_builtin.lsp_outgoing_calls, 'Outgoing Calls')
 
   -- Diagnostic
+  vim.diagnostic.config({ virtual_text = true })
+  nmap('gsd', vim.diagnostic.setqflist, 'Send diagnostics to quickfix list')
   map('n', '<leader>sd', telescope_builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-  map('n', '<leader>pd', vim.diagnostic.goto_prev, { desc = "[P]revious [D]iagnostic" })
-  map('n', '<leader>nd', vim.diagnostic.goto_next, { desc = "[N]ext [D]iagnostic" })
   map('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open Floating Diagnostic Message" })
 
-  -- Cursor Highlight
-  vim.api.nvim_create_autocmd("CursorHold", {
-    callback = vim.lsp.buf.document_highlight,
-    buffer = bufnr,
-    group = lsp_group,
-    desc = "Document Highlight",
-  })
-  vim.api.nvim_create_autocmd("CursorMoved", {
-    callback = vim.lsp.buf.clear_references,
-    buffer = bufnr,
-    group = lsp_group,
-    desc = "Clear All the References",
-  })
-  vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
-    callback = vim.lsp.codelens.refresh,
-    buffer = bufnr,
-    group = lsp_group,
-  })
+  if client.server_capabilities.documentHighlightProvider then
+    -- Cursor Highlight
+    vim.api.nvim_create_autocmd("CursorHold", {
+      callback = vim.lsp.buf.document_highlight,
+      buffer = bufnr,
+      group = lsp_group,
+      desc = "Document Highlight",
+    })
+    vim.api.nvim_create_autocmd("CursorMoved", {
+      callback = vim.lsp.buf.clear_references,
+      buffer = bufnr,
+      group = lsp_group,
+      desc = "Clear All the References",
+    })
+    vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+      callback = vim.lsp.codelens.refresh,
+      buffer = bufnr,
+      group = lsp_group,
+    })
+  end
 end
 
 return {
@@ -90,15 +90,20 @@ return {
     },
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
-      on_attach()
-      require('lspconfig').lua_ls.setup { capabilities = capabilities }
-      require('lspconfig').rust_analyzer.setup { capabilities = capabilities }
-      require('lspconfig').ts_ls.setup { capabilities = capabilities }
-      require('lspconfig').bashls.setup { capabilities = capabilities }
-      require('lspconfig').jsonls.setup { capabilities = capabilities }
+      -- on_attach
+      require('lspconfig').lua_ls.setup { capabilities = capabilities, on_attach = on_attach }
+      require('lspconfig').rust_analyzer.setup { capabilities = capabilities, on_attach = on_attach }
+      require('lspconfig').ts_ls.setup { capabilities = capabilities, on_attach = on_attach }
+      require('lspconfig').bashls.setup { capabilities = capabilities, on_attach = on_attach }
+      require('lspconfig').jsonls.setup { capabilities = capabilities, on_attach = on_attach }
+      -- require('lspconfig').groovyls.setup {
+      --   cmd = { "java", "-jar", '~/Documents/lunatech/audi/tools/groovy-language-server/build/libs/groovy-language-server-all.jar' },
+      --   capabilities = capabilities,
+      --   on_attach = on_attach
+      -- }
     end,
   },
-  -- Metals & Plenary
+  -- Metals
   {
     "scalameta/nvim-metals",
     dependencies = {
@@ -111,19 +116,19 @@ return {
       local metals_config = require("metals").bare_config()
 
       metals_config.init_options.statusBarProvider = "off"
-      metals_config.on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
-      end
+      metals_config.on_attach = on_attach
       metals_config.capabilities = capabilities
       metals_config.settings = {
         superMethodLensesEnabled = true,
         inlayHints = {
+          byNameParameters = { enable = true },
           hintsInPatternMatch = { enable = true },
           implicitArguments = { enable = true },
           implicitConversions = { enable = true },
           inferredTypes = { enable = true },
-          typeParameters = { enable = true },
-        }
+          typeParameters = { enable = true }
+        },
+        autoImportBuild = "all"
       }
 
       return metals_config
