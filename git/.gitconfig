@@ -6,6 +6,9 @@
 [includeIf "gitdir:~/Documents/lunatech/"]
   path = .gitconfig_lunatech
 
+[includeIf "gitdir:~/Documents/secret/"]
+  path = .gitconfig_crozes-hermitage
+
 [color]
 	ui = true
 
