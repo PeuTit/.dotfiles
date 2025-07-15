@@ -70,6 +70,10 @@ local on_attach = function(client, bufnr)
       group = lsp_group,
     })
   end
+
+  nmap('<leader>td', function()
+    vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+  end, '[T]oggle [D]iagnostics')
 end
 
 return {
