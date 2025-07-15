@@ -7,6 +7,9 @@ vim.g.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+-- Set signcolumn
+vim.opt.signcolumn = "yes:1"
+
 -- Tab set to two spaces
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
