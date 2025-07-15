@@ -94,6 +94,7 @@ return {
     },
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
+
       -- on_attach
       require('lspconfig').lua_ls.setup { capabilities = capabilities, on_attach = on_attach }
       require('lspconfig').rust_analyzer.setup { capabilities = capabilities, on_attach = on_attach }
@@ -101,11 +102,6 @@ return {
       require('lspconfig').bashls.setup { capabilities = capabilities, on_attach = on_attach }
       require('lspconfig').jsonls.setup { capabilities = capabilities, on_attach = on_attach }
       require('lspconfig').pyright.setup { capabilities = capabilities, on_attach = on_attach }
-      -- require('lspconfig').groovyls.setup {
-      --   cmd = { "java", "-jar", '~/Documents/lunatech/audi/tools/groovy-language-server/build/libs/groovy-language-server-all.jar' },
-      --   capabilities = capabilities,
-      --   on_attach = on_attach
-      -- }
     end,
   },
   -- Metals

@@ -11,14 +11,8 @@ return {
     opts = {
       bigfile = { enabled = true },
       dashboard = { enabled = true },
-      dim = { enabled = true },
       quickfile = { enabled = true },
-      scroll = { enabled = true },
-      statuscolumn = { enabled = true },
-      rename = { enabled = true },
       scratch = { enabled = true },
-      toggle = { enabled = true },
-      zen = { enabled = true },
     },
     keys = {
       -- Buffers
