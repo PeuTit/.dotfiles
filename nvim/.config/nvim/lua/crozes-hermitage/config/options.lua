@@ -4,8 +4,8 @@ local map = require('crozes-hermitage.utils').map
 vim.g.termguicolors = true
 
 -- Set number
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.number = false
+vim.opt.relativenumber = false
 
 -- Set signcolumn
 vim.opt.signcolumn = "yes:1"
