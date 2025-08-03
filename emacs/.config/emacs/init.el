@@ -139,7 +139,7 @@
 (use-package projectile
   :ensure t
   :init
-  (setq projectile-project-search-path '("~/Documents/lunatech/" "~/Documents/accounting" "~/Documents/coding/" "~/Documents/notes/"))
+  (setq projectile-project-search-path '("~/Documents/accounting/finance/" "~/Documents/coding/playground/lisp-playground/" "~/Documents/notes/personal/"))
   :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (setq projectile-switch-project-action #'projectile-find-file)
@@ -169,18 +169,9 @@
   :ensure t
   :hook (org-mode . ch/org-mode-setup)
   :config
-  (setq org-agenda-files
-	'("~/Documents/notes/personal/journal.org"
-	  "~/Documents/lunatech/notes/work-logs.org"))
-  (setq org-agenda-start-with-log-mode t)
-  (setq org-log-done 'note)
-  (setq org-log-into-drawer t)
-  (setq org-ellipsis " ▼"))
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
-(global-set-key (kbd "C-c l") #'org-store-link)
-(global-set-key (kbd "C-c a") #'org-agenda)
-(global-set-key (kbd "C-c c") #'org-capture)
-(global-set-key (kbd "<leader>st") (lambda () (interactive) (call-interactively 'org-show-todo-tree)))
+  (setq org-outline-path-complete-in-steps nil))
 
 ;; dired
 (global-set-key (kbd "<leader>sd") #'dired-jump)
@@ -212,6 +203,26 @@
 
 (use-package magit
   :ensure t
-  :after transient)
+  :after transient
+  :config
+  (setq git-commit-use-local-message-ring t))
 
 (global-set-key (kbd "<leader>sg") #'magit)
+
+;; Git gutter
+(use-package git-gutter
+  :ensure t
+  :config
+  (global-git-gutter-mode +1))
+
+(flyspell-mode t)
+
+(electric-pair-mode t)
+
+(use-package slime
+  :ensure t
+  :config
+  (setq inferior-lisp-program "sbcl"))
+
+;; flymake
+(setf flymake-show-diagnostics-at-end-of-line t)
