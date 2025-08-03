@@ -226,3 +226,5 @@
 
 ;; flymake
 (setf flymake-show-diagnostics-at-end-of-line t)
+
+(desktop-save-mode 1)
