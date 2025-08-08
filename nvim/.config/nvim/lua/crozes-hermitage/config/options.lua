@@ -64,3 +64,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldenable = false
+
+-- Filetype
+-- Treat Jenkinsfile.* as groovy
+vim.filetype.add({
+  pattern = {
+    ['Jenkinsfile.*'] = 'groovy'
+  }
+})
