@@ -72,3 +72,7 @@ vim.filetype.add({
     ['Jenkinsfile.*'] = 'groovy'
   }
 })
+
+-- Vim motions behave like emacs visual line mode
+map('n', 'j', 'gj')
+map('n', 'k', 'gk')
