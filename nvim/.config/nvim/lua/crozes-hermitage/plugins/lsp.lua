@@ -95,13 +95,23 @@ return {
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-      -- on_attach
-      require('lspconfig').lua_ls.setup { capabilities = capabilities, on_attach = on_attach }
-      require('lspconfig').rust_analyzer.setup { capabilities = capabilities, on_attach = on_attach }
-      require('lspconfig').ts_ls.setup { capabilities = capabilities, on_attach = on_attach }
-      require('lspconfig').bashls.setup { capabilities = capabilities, on_attach = on_attach }
-      require('lspconfig').jsonls.setup { capabilities = capabilities, on_attach = on_attach }
-      require('lspconfig').pyright.setup { capabilities = capabilities, on_attach = on_attach }
+      vim.lsp.config('lua_ls', { capabilities = capabilities, on_attach = on_attach })
+      vim.lsp.enable('lua_ls')
+
+      vim.lsp.config('rust_analyzer', { capabilities = capabilities, on_attach = on_attach })
+      vim.lsp.enable('rust_analyzer')
+
+      vim.lsp.config('ts_ls', { capabilities = capabilities, on_attach = on_attach })
+      vim.lsp.enable('ts_ls')
+
+      vim.lsp.config('bashls', { capabilities = capabilities, on_attach = on_attach })
+      vim.lsp.enable('bashls')
+
+      vim.lsp.config('jsonls', { capabilities = capabilities, on_attach = on_attach })
+      vim.lsp.enable('jsonls')
+
+      vim.lsp.config('pyright', { capabilities = capabilities, on_attach = on_attach })
+      vim.lsp.enable('pyright')
     end,
   },
   -- Metals
