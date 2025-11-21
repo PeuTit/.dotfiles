@@ -167,35 +167,31 @@
 ;; End Projectile
 
 ;; Org
-;; (org-babel-do-load-languages
-;;  'org-babel-load-languages
-;;  '((lisp . t)
-;;    (shell . t)))
+(defun crozes-hermitage/org-mode-setup ()
+  (org-indent-mode)
+  (org-appear-mode))
 
-;; (setq org-confirm-babel-evaluate nil)
-;; (setq org-return-follows-link t)
+(use-package org
+  :hook (org-mode . crozes-hermitage/org-mode-setup)
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((lisp . t)
+     (shell . t)))
+  (setq org-confirm-babel-evaluate nil
+	org-return-follows-link t))
 
-;; (use-package org-appear
-;;   :ensure (:wait t))
-
-;; (defun ch/org-mode-setup ()
-;;   (org-indent-mode)
-;;   (org-appear-mode))
-
-;; (use-package org
-;;   :ensure (:wait t)
-;;   :hook (org-mode . ch/org-mode-setup))
-
-;; (defun ch/org-mode-visual-fill ()
-;;   (setq visual-fill-column-width 80
-;; 	visual-fill-column-center-text t)
-;;   (visual-fill-column-mode 1))
+(use-package org-appear :after org)
 
 ;; visual fill column
-;; (use-package visual-fill-column
-;;   :ensure t
-;;   :hook (org-mode . ch/org-mode-visual-fill))
+(defun crozes-hermitage/org-mode-visual-fill ()
+  (setq visual-fill-column-width 80
+	visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
 
+(use-package visual-fill-column
+  :after org
+  :hook (org-mode . crozes-hermitage/org-mode-visual-fill))
 ;; End Org
 
 ;; Completion (untested)
@@ -215,5 +211,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(evil-collection evil-surround git-gutter magit nerd-icons
-		     perspective projectile slime undo-tree)))
+   '(evil-collection evil-surround git-gutter magit nerd-icons org-appear
+		     perspective projectile slime undo-tree
+		     visual-fill-column)))
