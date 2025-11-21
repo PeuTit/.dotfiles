@@ -1,230 +1,219 @@
-(scroll-bar-mode -1)        ; Disable visible scrollbar
-(tool-bar-mode -1)          ; Disable the toolbar
+;; Emacs Settings
 
-(custom-set-faces
-   '(default ((t (:height 160 :family "Menlo" :weight bold)))))
+(setq inhibit-startup-message t)
+
+(scroll-bar-mode -1)
+
+(tool-bar-mode -1)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-(defvar elpaca-installer-version 0.10)
-(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
-(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
-(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
-                              :ref nil :depth 1 :inherit ignore
-                              :files (:defaults "elpaca-test.el" (:exclude "extensions"))
-                              :build (:not elpaca--activate-package)))
-(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
-       (build (expand-file-name "elpaca/" elpaca-builds-directory))
-       (order (cdr elpaca-order))
-       (default-directory repo))
-  (add-to-list 'load-path (if (file-exists-p build) build repo))
-  (unless (file-exists-p repo)
-    (make-directory repo t)
-    (when (<= emacs-major-version 28) (require 'subr-x))
-    (condition-case-unless-debug err
-        (if-let* ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
-                  ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
-                                                  ,@(when-let* ((depth (plist-get order :depth)))
-                                                      (list (format "--depth=%d" depth) "--no-single-branch"))
-                                                  ,(plist-get order :repo) ,repo))))
-                  ((zerop (call-process "git" nil buffer t "checkout"
-                                        (or (plist-get order :ref) "--"))))
-                  (emacs (concat invocation-directory invocation-name))
-                  ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
-                                        "--eval" "(byte-recompile-directory \".\" 0 'force)")))
-                  ((require 'elpaca))
-                  ((elpaca-generate-autoloads "elpaca" repo)))
-            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
-          (error "%s" (with-current-buffer buffer (buffer-string))))
-      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
-  (unless (require 'elpaca-autoloads nil t)
-    (require 'elpaca)
-    (elpaca-generate-autoloads "elpaca" repo)
-    (load "./elpaca-autoloads")))
-(add-hook 'after-init-hook #'elpaca-process-queues)
-(elpaca `(,@elpaca-order))
-
-;; Install a package via the elpaca macro
-;; See the "recipes" section of the manual for more details.
-
-;; (elpaca example-package)
-
-;; Install use-package support
-(elpaca elpaca-use-package
-  ;; Enable use-package :ensure support for Elpaca.
-  (elpaca-use-package-mode))
-
-;;When installing a package used in the init file itself,
-;;e.g. a package which adds a use-package key word,
-;;use the :wait recipe keyword to block until that package is installed/configured.
-;;For example:
-;;(use-package general :ensure (:wait t) :demand t)
-
-(use-package evil
-    :ensure t
-    :init
-    (setq evil-want-keybinding nil)
-    (setq evil-want-C-u-scroll t)
-    :config
-    (evil-mode 1)
-
-    (define-key evil-normal-state-map (kbd "C-g") 'evil-normal-state)
-
-    (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-    (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-
-    (evil-set-leader 'normal (kbd "<SPC>"))
-
-    (evil-define-key 'normal 'global (kbd "<leader>fs") 'save-buffer)
-    (evil-define-key 'normal 'global (kbd "<leader>sf") 'find-file)
-    (evil-define-key 'normal 'global (kbd "<leader>x") 'eval-buffer))
-
-(use-package undo-tree
-  :ensure t
-  :after evil
-  :diminish
-  :config
-  (evil-set-undo-system 'undo-tree)
-  (setq undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo"))))
-  (global-undo-tree-mode 1))
-
-(use-package evil-collection
-    :after evil
-    :ensure t
-    :config
-    (evil-collection-init))
-
-;;Completion
-(setf completion-styles '(basic flex)
-      completion-auto-select t ;; Show completion on first call
-      completion-auto-help 'visible ;; Display *Completions* upon first request
-      completions-format 'one-column ;; Use only one column
-      completions-sort 'historical ;; Order based on minibuffer history
-      completions-max-height 20 ;; Limit completions to 15 (completions start at line 5)
-      completion-ignore-case t)
-
-;;Modeline (the status line at the bottom)
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1))
-
-(use-package nerd-icons :ensure t)
-
-(use-package doom-themes
-  :ensure t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-one t)
-
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config)
-)
-
-;;Surround
-(use-package evil-surround
-  :ensure t
-  :config
-  (global-evil-surround-mode 1))
-
-(which-key-mode 1)
-
-(global-visual-line-mode t)
-
-(setq mac-right-option-modifier 'none)
-
-;;Projectile
-(use-package projectile
-  :ensure t
-  :init
-  (setq projectile-project-search-path '("~/Documents/accounting/finance/" "~/Documents/coding/playground/lisp-playground/" "~/Documents/notes/personal/"))
-  :config
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (setq projectile-switch-project-action #'projectile-find-file)
-  (setq projectile-completion-system 'default)
-  (projectile-mode +1))
-
-;;F-IDO
-(fido-vertical-mode 1)
-
-;;Perspective
-(use-package perspective
-  :ensure t
-  :bind
-  ("<leader><SPC>" . switch-to-buffer)
-  :custom
-  (persp-mode-prefix-key (kbd "C-SPC"))  ; pick your own prefix key here
-  (persp-sort 'created)
-  (persp-show-modestring 'header)
-  :init
-  (persp-mode))
-
-;;org
-(defun ch/org-mode-setup ()
-  (org-indent-mode))
-
-(use-package org
-  :ensure t
-  :hook (org-mode . ch/org-mode-setup)
-  :config
-  (advice-add 'org-refile :after 'org-save-all-org-buffers)
-
-  (setq org-outline-path-complete-in-steps nil))
-
-;; dired
-(global-set-key (kbd "<leader>sd") #'dired-jump)
-
-;; keep emacs folder clean
-;; backup
-(setq backup-directory-alist
-      `(("." . ,(concat user-emacs-directory "backups"))))
-
-;; autosave
-(make-directory (expand-file-name "auto-saves/" user-emacs-directory) t)
-
-(setq auto-save-list-file-prefix (expand-file-name "auto-saves/sessions/" user-emacs-directory)
-      auto-save-file-name-transforms `((".*" ,(expand-file-name "auto-saves/" user-emacs-directory) t)))
-
-(defun ch/org-mode-visual-fill ()
-  (setq visual-fill-column-width 100
-	visual-fill-column-center-text t)
-	(visual-fill-column-mode 1))
-
-;; visual fill column
-(use-package visual-fill-column
-  :ensure t
-  :hook (org-mode . ch/org-mode-visual-fill))
-
-;; magit
-(use-package transient
-  :ensure t)
-
-(use-package magit
-  :ensure t
-  :after transient
-  :config
-  (setq git-commit-use-local-message-ring t))
-
-(global-set-key (kbd "<leader>sg") #'magit)
-
-;; Git gutter
-(use-package git-gutter
-  :ensure t
-  :config
-  (global-git-gutter-mode +1))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:height 160 :family "Menlo" :weight bold)))))
 
 (flyspell-mode t)
 
 (electric-pair-mode t)
 
+(which-key-mode 1)
+
+(global-visual-line-mode 1)
+
+(setq mac-right-option-modifier 'none) ; Ignore the right option key. Allow to type symbols (#€¡...)
+
+(fido-vertical-mode 1) ; F-IDO
+
+;; End Emacs Settings
+
+;; Backups Settings
+;; keep emacs folder clean
+(defvar backups-dir (expand-file-name "backups/" user-emacs-directory))
+
+;; Create the directory if it doesn't exist
+(unless (file-exists-p backups-dir)
+  (make-directory backups-dir t))
+
+;; Tell Emacs to use this directory for backups
+(setq backup-directory-alist `(("." . ,backups-dir)))
+;; End Backups Settings
+
+;; Packages
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
+(unless package-archive-contents
+  (package-refresh-contents))
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+;; End Packages
+
+;; Evil
+(use-package evil
+  :init
+  (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
+  :config
+  (evil-mode 1)
+  (define-key evil-normal-state-map (kbd "C-g") 'evil-normal-state)
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+  (evil-set-leader 'normal (kbd "<SPC>"))
+
+  (evil-define-key 'normal 'global (kbd "<leader>fs") 'save-buffer)
+  (evil-define-key 'normal 'global (kbd "<leader>sf") 'find-file))
+
+;; More evil keybinds (e.g. vim keybind in magit)
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
+
+;; Surround
+ (use-package evil-surround
+   :after evil
+   :config
+   (global-evil-surround-mode 1))
+
+(use-package undo-tree
+  :after evil
+  :diminish
+  :config
+  (evil-set-undo-system 'undo-tree)
+  (setq undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo"))))
+   (global-undo-tree-mode 1))
+;; End Evil
+
+;; Git Packages
+(use-package magit
+  :after transient
+  :config
+  (setq git-commit-use-local-message-ring t))
+
+;; Git gutter
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode +1))
+;; End Git Packages
+
+;; Misc Packages
+(use-package nerd-icons)
+;; End Misc Packages
+
+
+;; Theme
+;; Modeline (the status line at the bottom)
+(use-package doom-modeline
+  :init (doom-modeline-mode 1))
+
+(setq theme1 'doom-zenburn
+      theme2 'doom-plain
+      theme3 'doom-plain-dark)
+
+(use-package doom-themes
+   :config
+   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+         doom-themes-enable-italic t) ; if nil, italics is universally disabled
+   (load-theme theme2 t)
+   ;; Corrects (and improves) org-mode's native fontification.
+   (doom-themes-org-config)))
+
+(defun toggle-theme ()
+  (interactive)
+  (if (eq (car custom-enabled-themes) theme1)
+      (disable-theme theme1)
+    (enable-theme theme1)))
+
+(global-set-key [f5] 'toggle-theme)
+;; End Theme
+
+;; Common Lisp
 (use-package slime
-  :ensure t
   :config
   (setq inferior-lisp-program "sbcl"))
+;; End Common Lisp
 
-;; flymake
-(setf flymake-show-diagnostics-at-end-of-line t)
+;; Perspective
+(use-package perspective
+  :bind
+  ("<leader><SPC>" . switch-to-buffer)
+  :custom
+  (persp-mode-prefix-key (kbd "C-SPC"))  ; pick your own prefix key here
+  (persp-sort 'created)
+  (persp-show-modestring t)
+  :init
+  (persp-mode))
+;; End Perspective
 
-(desktop-save-mode 1)
+;; Projectile
+(use-package projectile
+  :init
+  (setq projectile-project-search-path '("~/Documents/accounting/finance/"
+					 "~/Documents/coding/playground/lisp-playground/"
+					 "~/Documents/notes/personal/"))
+  :config
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (setq projectile-switch-project-action #'projectile-find-file)
+  (setq projectile-completion-system 'default)
+  (projectile-mode +1))
+;; End Projectile
+
+;; Org
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  '((lisp . t)
+;;    (shell . t)))
+
+;; (setq org-confirm-babel-evaluate nil)
+;; (setq org-return-follows-link t)
+
+;; (use-package org-appear
+;;   :ensure (:wait t))
+
+;; (defun ch/org-mode-setup ()
+;;   (org-indent-mode)
+;;   (org-appear-mode))
+
+;; (use-package org
+;;   :ensure (:wait t)
+;;   :hook (org-mode . ch/org-mode-setup))
+
+;; (defun ch/org-mode-visual-fill ()
+;;   (setq visual-fill-column-width 80
+;; 	visual-fill-column-center-text t)
+;;   (visual-fill-column-mode 1))
+
+;; visual fill column
+;; (use-package visual-fill-column
+;;   :ensure t
+;;   :hook (org-mode . ch/org-mode-visual-fill))
+
+;; End Org
+
+;; Completion (untested)
+;; (setf completion-styles '(basic flex)
+;;       completion-auto-select t ;; Show completion on first call
+;;       completion-auto-help 'visible ;; Display *Completions* upon first request
+;;       completions-format 'one-column ;; Use only one column
+;;       completions-sort 'historical ;; Order based on minibuffer history
+;;       completions-max-height 20 ;; Limit completions to 15 (completions start at line 5)
+;;       completion-ignore-case t)
+
+;; End Completion
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(evil-collection evil-surround git-gutter magit nerd-icons
+		     perspective projectile slime undo-tree)))
