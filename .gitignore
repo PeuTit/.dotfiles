@@ -22,3 +22,4 @@ emacs/.config/emacs/backups
 emacs/.config/emacs/games
 emacs/.config/emacs/bookmarks
 emacs/.config/emacs/ido.last
+emacs/.config/emacs/transient
