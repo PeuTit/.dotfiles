@@ -122,9 +122,9 @@
    :config
    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
          doom-themes-enable-italic t) ; if nil, italics is universally disabled
-   (load-theme theme2 t)
+   (load-theme theme1 t))
    ;; Corrects (and improves) org-mode's native fontification.
-   (doom-themes-org-config)))
+   ;;(doom-themes-org-config)
 
 (defun toggle-theme ()
   (interactive)
