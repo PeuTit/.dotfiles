@@ -1,7 +1,7 @@
 /opt/homebrew/bin/brew shellenv | source
 
 # fzf.fish extra config
-fzf_configure_bindings --directory=\cf
+fzf_configure_bindings --directory=\cd
 set --global fzf_preview_dir_cmd lsd -A --color never
 set --global fzf_preview_file_cmd bat -p --color never
 set --global fzf_fd_opts --no-ignore
