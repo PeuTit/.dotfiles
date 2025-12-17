@@ -76,3 +76,9 @@ vim.filetype.add({
 -- Vim motions behave like emacs visual line mode
 map('n', 'j', 'gj')
 map('n', 'k', 'gk')
+
+-- Emacs key binds in insert mode
+map('i', '<C-a>', '<C-o>^')
+map('i', '<C-e>', '<C-o>$')
+map('i', '<C-f>', '<C-o>l')
+map('i', '<C-b>', '<C-o>h')
