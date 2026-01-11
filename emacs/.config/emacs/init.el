@@ -1,5 +1,4 @@
 ;; Emacs Settings
-
 (setq inhibit-startup-message t)
 
 (scroll-bar-mode -1)
@@ -28,6 +27,7 @@
 (fido-vertical-mode 1) ; F-IDO
 
 ;; End Emacs Settings
+
 
 ;; Backups Settings
 ;; keep emacs folder clean
