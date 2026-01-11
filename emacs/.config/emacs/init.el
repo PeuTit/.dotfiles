@@ -66,9 +66,14 @@
   :init
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
+  (setq evil-disable-insert-state-bindings t)
+
   :config
   (evil-mode 1)
   (define-key evil-normal-state-map (kbd "C-g") 'evil-normal-state)
+  (define-key evil-insert-state-map (kbd "C-e") nil)
+  (define-key evil-insert-state-map (kbd "C-a") nil)
+  (define-key evil-normal-state-map (kbd "M-.") nil)
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 
