@@ -29,6 +29,12 @@
 ;; End Emacs Settings
 
 
+;; Hooks
+(add-hook 'text-mode-hook #'flyspell-mode)
+(add-hook 'prog-mode-hook #'flyspell-prog-mode)
+(add-hook 'prog-mode-hook #'completion-preview-mode)
+;; End Hooks
+
 ;; Backups Settings
 ;; keep emacs folder clean
 (defvar backups-dir (expand-file-name "backups/" user-emacs-directory))
