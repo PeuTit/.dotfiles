@@ -5,7 +5,7 @@
 
 (tool-bar-mode -1)
 
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(keymap-global-set "<escape>" 'keyboard-escape-quit)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -132,7 +132,7 @@
       (disable-theme theme1)
     (enable-theme theme1)))
 
-(global-set-key [f5] 'toggle-theme)
+(keymap-global-set "<f5>" 'toggle-theme)
 ;; End Theme
 
 ;; Common Lisp
