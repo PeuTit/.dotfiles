@@ -178,21 +178,21 @@
 ;; End Projectile
 
 ;; Org
-(defun crozes-hermitage/org-mode-setup ()
-  (org-indent-mode)
-  (org-appear-mode))
+(use-package org-appear :after org)
 
 (use-package org
-  :hook (org-mode . crozes-hermitage/org-mode-setup)
+  :hook
+  (org-mode . org-indent-mode)
+  (org-mode . org-appear-mode)
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((lisp . t)
      (shell . t)))
   (setq org-confirm-babel-evaluate nil
-	org-return-follows-link t))
+	org-return-follows-link t)
+  (keymap-global-set "C-c l" 'org-store-link))
 
-(use-package org-appear :after org)
 
 ;; visual fill column
 (defun crozes-hermitage/org-mode-visual-fill ()
