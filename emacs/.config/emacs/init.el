@@ -195,7 +195,7 @@
 ;; End Org
 
 ;; Completion (untested)
-;; (setf completion-styles '(basic flex)
+(setf completion-styles '(basic))
 ;;       completion-auto-select t ;; Show completion on first call
 ;;       completion-auto-help 'visible ;; Display *Completions* upon first request
 ;;       completions-format 'one-column ;; Use only one column
