@@ -99,3 +99,5 @@ if status is-interactive
     # use to enter pgp passphrase when commiting
     set -gx GPG_TTY "$(tty)"
 end
+
+zoxide init fish | source
