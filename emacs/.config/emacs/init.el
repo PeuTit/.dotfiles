@@ -14,6 +14,9 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:height 160 :family "Menlo" :weight bold)))))
 
+(setq ispell-program-name "hunspell")
+(setq ispell-dictionary "en_US")
+
 (flyspell-mode t)
 
 (electric-pair-mode t)
