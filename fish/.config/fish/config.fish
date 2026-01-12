@@ -66,7 +66,12 @@ if status is-interactive
 
     abbr -a --global -- bbb 'brew update && brew upgrade && brew cleanup'
 
-    abbr -a --global -- hledger 'hledger --file ~/Documents/accounting/finance/2025.journal'
+    set hledger_file_path 'hledger --file ~/Documents/accounting/finance/2026.journal'
+
+    abbr -a --global -- hl $hledger_file_path
+    abbr -a --global -- hlc "$hledger_file_path check"
+    abbr -a --global -- hlis "$hledger_file_path is -V --pretty-tables"
+    abbr -a --global -- hlbs "$hledger_file_path bs -V --pretty-tables"
 
     abbr -a --global -- tds start_tmux_from_directory
 
