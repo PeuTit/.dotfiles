@@ -1,0 +1,131 @@
+{
+  "profiles" : [
+    {
+      "id" : "AC301EE5-E97E-490F-84BF-1DE3D029CEA8",
+      "name" : "Default",
+      "workspaces" : [
+        {
+          "appToFocus" : {
+            "bundleIdentifier" : "com.github.wez.wezterm",
+            "iconPath" : "/Applications/WezTerm.app/Contents/Resources/terminal.icns",
+            "name" : "WezTerm"
+          },
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.github.wez.wezterm",
+              "iconPath" : "/Applications/WezTerm.app/Contents/Resources/terminal.icns",
+              "name" : "WezTerm"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "8B45C564-2276-480F-AC89-DC5F7415985B",
+          "name" : "terminal",
+          "shortcut" : "opt+j",
+          "symbolIconName" : "apple.terminal"
+        },
+        {
+          "appToFocus" : {
+            "bundleIdentifier" : "company.thebrowser.Browser",
+            "iconPath" : "/Applications/Arc.app/Contents/Resources/AppIcon.icns",
+            "name" : "Arc"
+          },
+          "apps" : [
+            {
+              "bundleIdentifier" : "company.thebrowser.Browser",
+              "iconPath" : "/Applications/Arc.app/Contents/Resources/AppIcon.icns",
+              "name" : "Arc"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "E60A390A-C71C-4EAE-A80A-A822B2FECC70",
+          "name" : "browser",
+          "shortcut" : "opt+a",
+          "symbolIconName" : "cursorarrow.square"
+        },
+        {
+          "appToFocus" : {
+            "bundleIdentifier" : "com.tinyspeck.slackmacgap",
+            "iconPath" : "/Applications/Slack.app/Contents/Resources/electron.icns",
+            "name" : "Slack"
+          },
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.tinyspeck.slackmacgap",
+              "iconPath" : "/Applications/Slack.app/Contents/Resources/electron.icns",
+              "name" : "Slack"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "5811AAB9-8D0F-4910-B5C5-51AAE58C51F0",
+          "name" : "communication",
+          "shortcut" : "opt+s",
+          "symbolIconName" : "tray.2"
+        },
+        {
+          "appToFocus" : {
+            "bundleIdentifier" : "com.apple.finder",
+            "iconPath" : "/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns",
+            "name" : "Finder"
+          },
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.apple.finder",
+              "iconPath" : "/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns",
+              "name" : "Finder"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "9231569E-582F-4BA1-8BE0-4B98BB9A5AD7",
+          "name" : "finder",
+          "shortcut" : "opt+f",
+          "symbolIconName" : "folder"
+        },
+        {
+          "appToFocus" : {
+            "bundleIdentifier" : "org.gnu.Emacs",
+            "iconPath" : "/Applications/Emacs.app/Contents/Resources/Emacs.icns",
+            "name" : "Emacs"
+          },
+          "apps" : [
+            {
+              "bundleIdentifier" : "org.gnu.Emacs",
+              "iconPath" : "/Applications/Emacs.app/Contents/Resources/Emacs.icns",
+              "name" : "Emacs"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "89B7714D-98E8-4B1B-AF3A-26823159120E",
+          "name" : "emacs",
+          "shortcut" : "opt+;",
+          "symbolIconName" : "duffle.bag"
+        },
+        {
+          "appToFocus" : {
+            "bundleIdentifier" : "com.electron.open-lens",
+            "iconPath" : "/Applications/OpenLens.app/Contents/Resources/icon.icns",
+            "name" : "OpenLens"
+          },
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.electron.open-lens",
+              "iconPath" : "/Applications/OpenLens.app/Contents/Resources/icon.icns",
+              "name" : "OpenLens"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "5D1DD67F-6651-4D8B-8A37-DE96C2250125",
+          "name" : "open lens",
+          "shortcut" : "opt+o",
+          "symbolIconName" : "sparkle.magnifyingglass"
+        }
+      ]
+    },
+    {
+      "id" : "C1DF8791-6D44-4892-B49C-E7A15C339DDF",
+      "name" : "Work",
+      "workspaces" : [
+
+      ]
+    }
+  ]
+}
