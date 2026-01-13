@@ -193,7 +193,8 @@
    '((lisp . t)
      (shell . t)))
   (setq org-confirm-babel-evaluate nil
-	org-return-follows-link t)
+	org-return-follows-link t
+	org-id-link-to-org-use-id 'use-existing)
   (keymap-global-set "C-c l" 'org-store-link))
 
 
